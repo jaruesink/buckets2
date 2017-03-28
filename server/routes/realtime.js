@@ -15,7 +15,7 @@ realtime.configure(socketio({ wsEngine: 'uws' }, (io) => {
   });
 }));
 
-const UserService = require('../controllers/user_service');
+const UserService = require('../services/user_service');
 
 realtime.use('/user_status', new UserService());
 

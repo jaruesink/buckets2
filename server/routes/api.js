@@ -2,9 +2,9 @@ const feathers = require('feathers');
 const rest = require('feathers-rest');
 const router = feathers();
 
-const LoginService = require('../controllers/login_service');
-const UserService = require('../controllers/user_service');
-const BucketService = require('../controllers/bucket_service');
+const LoginService = require('../services/login_service');
+const UserService = require('../services/user_service');
+const BucketService = require('../services/bucket_service');
 
 // Enable REST services
 router.configure(rest());
