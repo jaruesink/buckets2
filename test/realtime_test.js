@@ -22,7 +22,6 @@ const user = new User({
 describe('The realtime app', () => {
   it('can save a user', (done) => {
     status.on('updated', ({ status: new_status }) => {
-      console.log('I have a new status: ', { new_status });
       done();
     });
 

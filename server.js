@@ -2,10 +2,10 @@ const feathers = require('feathers');
 const rest = require('feathers-rest');
 const errorHandler = require('feathers-errors/handler');
 const path = require('path');
-const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const service = require('feathers-mongoose');
+// const http = require('http');
+// const service = require('feathers-mongoose');
 mongoose.Promise = global.Promise;
 
 // Connect to Mongoose if not in a test environment
