@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { appRoutes } from '../appstuff';
-
-import { AppComponent } from './app.component';
+import { appRoutes, Components, Modules, Services, Pages } from '../appstuff';
 
 @NgModule({
   declarations: [
-    AppComponent
+    Components,
+    Pages
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
+    ...Modules
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ Services ],
+  bootstrap: [Components[0]]
 })
 export class AppModule { }

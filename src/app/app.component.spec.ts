@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FacebookService } from 'ng2-facebook-sdk';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
@@ -10,6 +11,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
+      ],
+      providers: [
+        FacebookService
       ],
       imports: [ RouterTestingModule ]
     }).compileComponents();

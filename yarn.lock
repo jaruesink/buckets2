@@ -4259,9 +4259,9 @@ nested-error-stacks@^1.0.0:
   dependencies:
     inherits "~2.0.1"
 
-ng2-facebook-sdk@^1.2.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ng2-facebook-sdk/-/ng2-facebook-sdk-1.4.0.tgz#5a4943459f77ff98b2a2a55d63f4e9cbff27056b"
+ng2-facebook-sdk@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ng2-facebook-sdk/-/ng2-facebook-sdk-2.1.1.tgz#29805ffe52edf3a3bc7a3c9e7191dc498b3ffe22"
 
 no-case@^2.2.0:
   version "2.3.1"
