@@ -15,17 +15,16 @@ const rest = require('feathers-rest/client');
 })
 export class LoginPage {
   title = 'Login Page!';
-  api = feathers().configure(rest('http://localhost:3000').fetch(fetch));
-  userService = this.api.service('api/user');
+  api = feathers().configure(rest('http://localhost:3000').fetch(window.fetch.bind(window)));
+  loginService = this.api.service('api/login');
+
   constructor(private fb: FacebookService) {}
+
   login() {
     this.fb.login()
       .then((response: LoginResponse) => {
         const access_token = response.authResponse.accessToken;
-        this.userService.get(access_token, (err) => { console.error(err); })
-          .then((user) => {
-            console.log(user);
-          });
+        this.loginService.get(access_token).then(user => console.log('user', user))
       }).catch((error: any) => console.error(error));
   }
 }
