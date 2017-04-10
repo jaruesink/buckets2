@@ -64,6 +64,7 @@ app.use(errorHandler({
   html(error, req, res, next) {
     // render your error view with the error object
     res.render('error', error);
+    next();
   }
 }));
 
