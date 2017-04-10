@@ -1,6 +1,7 @@
 import { TestBed, inject, async } from '@angular/core/testing';
-import { FacebookService } from 'ng2-facebook-sdk';
 import { LoginPage } from './login.page';
+import { AuthService, ConnectService } from '../../services';
+import { FacebookService } from 'ng2-facebook-sdk';
 
 let fixture, page, compiled;
 
@@ -10,12 +11,8 @@ const buttonText = 'Login';
 describe('LoginPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        LoginPage
-      ],
-      providers: [
-        FacebookService
-      ]
+      declarations: [ LoginPage ],
+      providers: [ AuthService, ConnectService, FacebookService ]
     }).compileComponents();
     fixture = TestBed.createComponent(LoginPage);
     page = fixture.debugElement.componentInstance;
@@ -27,9 +24,21 @@ describe('LoginPage', () => {
     expect(page).toBeTruthy();
   }));
 
+  it('should load AuthService', async(() => {
+    inject([ AuthService ], (service: AuthService) => {
+      expect(service).toBeTruthy();
+    })
+  }));
+
+  it('should load ConnectService', async(() => {
+    inject([ ConnectService ], (service: ConnectService) => {
+      expect(service).toBeTruthy();
+    })
+  }));
+
   it('should load FacebookService', async(() => {
-    inject([FacebookService], (markdownService) => {
-      expect(FacebookService).toBeDefined();
+    inject([ FacebookService ], (service: FacebookService) => {
+      expect(service).toBeTruthy();
     })
   }));
 

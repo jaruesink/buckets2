@@ -19,4 +19,5 @@ export const Modules = [ FacebookModule.forRoot() ];
 
 // Services
 import { FacebookService } from 'ng2-facebook-sdk';
-export const Services = [ FacebookService ];
+import { AuthService, ConnectService } from './app/services';
+export const Services = [ FacebookService, AuthService, ConnectService ];

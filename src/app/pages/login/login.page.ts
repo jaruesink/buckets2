@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { FacebookService, LoginResponse } from 'ng2-facebook-sdk';
-
-declare var require: any;
-const feathers = require('feathers/client');
-const rest = require('feathers-rest/client');
+import { AuthService } from '../../services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-page',
@@ -15,16 +12,16 @@ const rest = require('feathers-rest/client');
 })
 export class LoginPage {
   title = 'Login Page!';
-  api = feathers().configure(rest('http://localhost:3000').fetch(window.fetch.bind(window)));
-  loginService = this.api.service('api/login');
 
-  constructor(private fb: FacebookService) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   login() {
-    this.fb.login()
-      .then((response: LoginResponse) => {
-        const access_token = response.authResponse.accessToken;
-        this.loginService.get(access_token).then(user => console.log('user', user))
-      }).catch((error: any) => console.error(error));
+    this.auth.login().then(user => {
+      console.log('Login Response', user);
+      this.router.navigate(['/']);
+    });
   }
 }

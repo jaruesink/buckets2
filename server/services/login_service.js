@@ -3,7 +3,6 @@ const User = require('../models/user');
 const UserService = require('./user_service');
 const user_service = new UserService();
 
-const server_url = 'http://localhost:3000';
 const fb_me_request = 'https://graph.facebook.com/v2.8/me?fields=id,name,email,picture';
 
 function getUserFromFB(access_token) {
