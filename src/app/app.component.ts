@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FacebookService, InitParams } from 'ng2-facebook-sdk';
 import { AuthService, ConnectService } from './services';
 import { LoaderComponent } from './components';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
   ) {
     this.connect.isLoading = true;
     const FBParams: InitParams = {
-      appId: '228671707475003',
+      appId: environment.fbAppID,
       xfbml: true,
       version: 'v2.8',
       cookie: true

@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  restUrl: 'http://localhost:3000'
+  restUrl: 'http://localhost:3000',
+  fbAppID: '1366231500132303'
 };
