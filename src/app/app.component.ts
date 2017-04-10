@@ -33,6 +33,7 @@ export class AppComponent {
       this.router.navigate(['/']);
       this.auth.currentAuth().then(user => {
         console.log(user);
+        this.auth.me = user;
         this.connect.isLoading = false;
       });
     }).catch(() => {

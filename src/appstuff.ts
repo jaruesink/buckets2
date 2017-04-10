@@ -11,8 +11,8 @@ export const Pages = [ HomePage, LoginPage ];
 
 // Components
 import { AppComponent } from './app/app.component';
-import { LoaderComponent } from './app/components';
-export const Components = [ AppComponent, LoaderComponent ];
+import { LoaderComponent, HeaderComponent } from './app/components';
+export const Components = [ AppComponent, LoaderComponent, HeaderComponent ];
 
 // Modules
 import { FacebookModule } from 'ng2-facebook-sdk';

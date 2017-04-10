@@ -5,6 +5,8 @@ import { ConnectService } from '../connect/connect.service';
 @Injectable()
 export class AuthService {
 
+  me: Object;
+
   constructor(private fb: FacebookService, private connect: ConnectService) { }
 
   currentAuth() {
