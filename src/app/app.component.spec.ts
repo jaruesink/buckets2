@@ -2,6 +2,8 @@ import { TestBed, async } from '@angular/core/testing';
 import { FacebookService } from 'ng2-facebook-sdk';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { AuthService, ConnectService } from './services';
+
 import { AppComponent } from './app.component';
 
 const title = 'hello world!'
@@ -13,7 +15,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        FacebookService
+        FacebookService, AuthService, ConnectService
       ],
       imports: [ RouterTestingModule ]
     }).compileComponents();

@@ -8,6 +8,7 @@ const rest = require('feathers-rest/client');
 export class ConnectService {
 
   api = feathers().configure(rest('http://localhost:3000').fetch(window.fetch.bind(window)));
+  isLoading:boolean;
 
   constructor() { }
 
