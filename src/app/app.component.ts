@@ -8,15 +8,15 @@ import { LoaderComponent } from './components';
   selector: 'app-root',
   template: `
   <main>
-    <loader *ngIf="isLoading"></loader>
-    <router-outlet [ngClass]="{'loading': isLoading}"></router-outlet>
+    <loader *ngIf="connect.isLoading"></loader>
+    <router-outlet [ngClass]="{'loading': connect.isLoading}"></router-outlet>
   </main>`,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   constructor(
     private auth: AuthService,
-    private connect: ConnectService,
+    public connect: ConnectService,
     private fb: FacebookService,
     private router: Router
   ) {

@@ -7,5 +7,5 @@ import { AuthService } from '../../services';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 }
