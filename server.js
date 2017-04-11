@@ -42,6 +42,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // Get our realtime routes
 const realtime_routes = require('./server/routes/realtime');
 
