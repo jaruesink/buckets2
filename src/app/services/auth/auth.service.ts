@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login() {
-    return this.fb.login()
+    return this.fb.login({scope: 'public_profile,email'})
       .then((response: LoginResponse) => {
         const access_token = response.authResponse.accessToken;
         return this.connect.loginService(access_token);

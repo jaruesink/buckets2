@@ -10,14 +10,25 @@ mongoose.Promise = global.Promise;
 
 // Connect to Mongoose if not in a test environment
 if (process.env.NODE_ENV !== 'test') {
-  const options = {
-    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
-  };
-  mongoose.connect(
-    'mongodb://username:password@ds141209.mlab.com:41209/buckets',
-    options
-  );
+  if (process.env.NODE_ENV !== 'prod') {
+    const options = {
+      server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+      replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+    };
+    mongoose.connect(
+      'mongodb://username:password@ds157320.mlab.com:57320/buckets_dev',
+      options
+    );
+  } else {
+    const options = {
+      server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+      replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+    };
+    mongoose.connect(
+      'mongodb://username:password@ds141209.mlab.com:41209/buckets',
+      options
+    );
+  }
 }
 
 
