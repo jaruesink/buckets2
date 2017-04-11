@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "dev": "ng serve & yarn start_server",
     "start": "NODE_ENV=prod node server.js",
     "build": "ng build --prod",
     "test": "ng test",
