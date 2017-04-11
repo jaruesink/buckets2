@@ -31,6 +31,7 @@ if (process.env.NODE_ENV !== 'test') {
   }
 }
 
+
 // Initiate our app
 const app = feathers();
 
