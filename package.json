@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build --prod && NODE_ENV=prod node server.js",
+    "start": "npm rebuild node-sass && ng build --prod && NODE_ENV=prod node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
