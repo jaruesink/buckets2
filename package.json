@@ -7,6 +7,7 @@
     "dev": "ng serve & yarn start_server",
     "start": "NODE_ENV=prod node server.js",
     "build": "ng build --prod",
+    "p": "yarn build && git add . && git commit --allow-empty -m \"latest build\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
