@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { FacebookService, InitParams } from 'ng2-facebook-sdk';
 import { AuthService, ConnectService } from './services';
 import { LoaderComponent } from './components';
@@ -19,8 +19,7 @@ export class AppComponent {
     private auth: AuthService,
     public connect: ConnectService,
     private fb: FacebookService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
     this.connect.isLoading = true;
     const FBParams: InitParams = {
@@ -30,10 +29,19 @@ export class AppComponent {
       cookie: true
     };
     fb.init(FBParams);
+    router.events.subscribe((event: Event) => {
+      console.log(event);
+      if (event instanceof NavigationEnd ) {
+        console.log('twice');
+        this.checkAuth(event.url);
+      }
+    });
+  }
+
+  checkAuth(current_path) {
     this.auth.checkLogin().then(() => {
       console.log('already logged in');
-      const current_path = this.route.snapshot.firstChild.url[0].path;
-      if (current_path === 'login') {
+      if (current_path === '/login') {
         this.router.navigate(['/']);
       }
       this.auth.currentAuth().then(user => {
@@ -41,8 +49,8 @@ export class AppComponent {
         this.auth.me = user;
         this.connect.isLoading = false;
       });
-    }).catch(() => {
-      console.log('user is not logged in');
+    }).catch((error) => {
+      console.log('user is not logged in', error);
       this.router.navigate(['/login']).then(() => {
         this.connect.isLoading = false;
       });
