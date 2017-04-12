@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FacebookService, InitParams } from 'ng2-facebook-sdk';
 import { AuthService, ConnectService } from './services';
 import { LoaderComponent } from './components';
@@ -19,7 +19,8 @@ export class AppComponent {
     private auth: AuthService,
     public connect: ConnectService,
     private fb: FacebookService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.connect.isLoading = true;
     const FBParams: InitParams = {
@@ -31,7 +32,10 @@ export class AppComponent {
     fb.init(FBParams);
     this.auth.checkLogin().then(() => {
       console.log('already logged in');
-      this.router.navigate(['/']);
+      const current_path = this.route.snapshot.firstChild.url[0].path;
+      if (current_path === 'login') {
+        this.router.navigate(['/']);
+      }
       this.auth.currentAuth().then(user => {
         console.log(user);
         this.auth.me = user;

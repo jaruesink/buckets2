@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components';
 
 @Component({
-  selector: 'home-page',
+  selector: 'addbucket-page',
   template: `
   <header [title]="title"></header>
   `,
-  styleUrls: ['./home.page.scss']
+  styleUrls: ['./addbucket.page.scss']
 })
-export class HomePage {
-  title = 'Home';
+export class AddbucketPage {
+  title = 'Create Bucket';
 }

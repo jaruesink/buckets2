@@ -1,5 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { FacebookService } from 'ng2-facebook-sdk';
+import { AuthService, ConnectService} from '../../services';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -8,6 +10,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [ AuthService, FacebookService, ConnectService ],
       declarations: [ HeaderComponent ]
     })
     .compileComponents();
@@ -19,7 +22,7 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create', inject([AuthService], (auth: AuthService) => {
     expect(component).toBeTruthy();
-  });
+  }));
 });
