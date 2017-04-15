@@ -1,4 +1,7 @@
 <div id="header" class="row flex space_between">
-  <h1 class="flex_item margin_left">{{title}}</h1>
+  <div class="flex_item margin_left">
+    <button *ngIf="connect.current_path && connect.current_path !== '/'" (click)="goBack()">Back</button>
+    <h1 class="margin_left">{{title}}</h1>
+  </div>
   <img class="flex_item" src="{{auth.me?.picture}}" alt="{{auth.me?.name}}">
 </div>

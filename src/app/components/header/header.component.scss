@@ -4,4 +4,8 @@
   align-items: center;
   background: $header_bg_color;
   height: 50px;
+
+  button, h1 {
+    display: inline-block;
+  }
 }

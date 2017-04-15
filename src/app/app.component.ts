@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  authChecked: boolean = false;
   constructor(
     private auth: AuthService,
     public connect: ConnectService,
@@ -30,16 +31,22 @@ export class AppComponent {
     };
     fb.init(FBParams);
     router.events.subscribe((event: Event) => {
-      console.log(event);
       if (event instanceof NavigationEnd ) {
-        console.log('twice');
-        this.checkAuth(event.url);
+         if (this.connect.current_path) {
+           this.connect.previous_path = this.connect.current_path;
+           console.log('previous_path:', this.connect.previous_path);
+         }
+        this.connect.current_path = event.url;
+        console.log('current_path:', event.url);
+        if (!this.authChecked) {
+          this.checkAuth(event.url).then(() => this.authChecked = true);
+        }
       }
     });
   }
 
   checkAuth(current_path) {
-    this.auth.checkLogin().then(() => {
+    return this.auth.checkLogin().then(() => {
       console.log('already logged in');
       if (current_path === '/login') {
         this.router.navigate(['/']);

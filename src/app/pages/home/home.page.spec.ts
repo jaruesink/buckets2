@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { RouterLinkStubDirective, RouterOutletStubComponent } from '../../../../test/test_stubs/router_stubs';
 import { HomePage } from './home.page';
 
 let fixture, page, compiled;
@@ -7,7 +8,7 @@ describe('HomePage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HomePage
+        HomePage, RouterLinkStubDirective, RouterOutletStubComponent
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(HomePage);

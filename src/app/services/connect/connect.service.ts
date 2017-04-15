@@ -7,7 +7,8 @@ const rest = require('feathers-rest/client');
 
 @Injectable()
 export class ConnectService {
-
+  previous_path: string;
+  current_path: string;
   api = feathers().configure(rest(environment.restUrl).fetch(window.fetch.bind(window)));
   isLoading:boolean;
 
