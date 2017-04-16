@@ -6,6 +6,7 @@ import { HeaderComponent } from '../../components';
   template: `
   <header [title]="title"></header>
   <main class="padding_2">
+    <bucketlist></bucketlist>
     <button routerLink="/addbucket">Add Bucket</button>
   </main>
   `,

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { FacebookService, LoginResponse } from 'ng2-facebook-sdk';
 import { ConnectService } from '../connect/connect.service';
 
@@ -7,7 +8,11 @@ export class AuthService {
 
   me: any;
 
-  constructor(private fb: FacebookService, private connect: ConnectService) { }
+  constructor(
+    public router: Router,
+    private fb: FacebookService,
+    private connect: ConnectService
+  ) { }
 
   currentAuth() {
     const access_token = this.fb.getAuthResponse().accessToken;
@@ -21,6 +26,25 @@ export class AuthService {
           resolve();
         }
         reject();
+      });
+    });
+  }
+
+  checkAuth(current_path) {
+    return this.checkLogin().then(() => {
+      console.log('already logged in');
+      if (current_path === '/login') {
+        this.router.navigate(['/']);
+      }
+      this.currentAuth().then(user => {
+        console.log(user);
+        this.me = user;
+        this.connect.isLoading = false;
+      });
+    }).catch((error) => {
+      console.log('user is not logged in', error);
+      this.router.navigate(['/login']).then(() => {
+        this.connect.isLoading = false;
       });
     });
   }

@@ -13,7 +13,7 @@ const BucketSchema = new Schema({
     required: true
   },
   // Either budget or goal amount
-  budget: {
+  amount: {
     type: Number,
     required: true
   },

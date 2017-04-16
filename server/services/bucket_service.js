@@ -1,6 +1,10 @@
 const Bucket = require('../models/bucket');
 
 class BucketService {
+  find(params) {
+    console.log(params);
+    return Promise.resolve(params);
+  }
   create(data, params, next) {
     return Bucket.create(data)
       .then(bucket => Promise.resolve(bucket))

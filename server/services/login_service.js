@@ -13,11 +13,11 @@ function getUserFromFB(access_token) {
 class LoginService {
   get(access_token, params, next) {
     return getUserFromFB(access_token).then((response) => {
-      console.log('response from fb', response);
+      // console.log('response from fb', response);
       const { id: fbid, name, email, picture: { data: { url: picture } } } = response;
       const userProps = { fbid, name, email, picture };
       return User.findOne({ fbid }).then((user) => {
-        console.log('user found', user);
+        // console.log('user found', user);
         if (user) {
           const testProps = {
             fbid: user.fbid,

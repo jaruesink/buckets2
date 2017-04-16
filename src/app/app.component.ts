@@ -39,28 +39,10 @@ export class AppComponent {
         this.connect.current_path = event.url;
         console.log('current_path:', event.url);
         if (!this.authChecked) {
-          this.checkAuth(event.url).then(() => this.authChecked = true);
+          this.auth.checkAuth(event.url).then(() => this.authChecked = true);
         }
       }
     });
   }
 
-  checkAuth(current_path) {
-    return this.auth.checkLogin().then(() => {
-      console.log('already logged in');
-      if (current_path === '/login') {
-        this.router.navigate(['/']);
-      }
-      this.auth.currentAuth().then(user => {
-        console.log(user);
-        this.auth.me = user;
-        this.connect.isLoading = false;
-      });
-    }).catch((error) => {
-      console.log('user is not logged in', error);
-      this.router.navigate(['/login']).then(() => {
-        this.connect.isLoading = false;
-      });
-    });
-  }
 }
