@@ -5,14 +5,14 @@ import { ConnectService } from '../connect/connect.service';
 
 @Injectable()
 export class AuthService {
-
   me: any;
-
   constructor(
     public router: Router,
     private fb: FacebookService,
     private connect: ConnectService
-  ) { }
+  ) {
+    this.connect.auth$.subscribe(user => this.me = user);
+  }
 
   currentAuth() {
     const access_token = this.fb.getAuthResponse().accessToken;
@@ -37,8 +37,7 @@ export class AuthService {
         this.router.navigate(['/']);
       }
       this.currentAuth().then(user => {
-        console.log(user);
-        this.me = user;
+        this.connect.auth$.next(user);
         this.connect.isLoading = false;
       });
     }).catch((error) => {

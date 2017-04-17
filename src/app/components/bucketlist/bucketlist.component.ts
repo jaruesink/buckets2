@@ -9,12 +9,11 @@ import { AuthService, BucketService } from '../../services';
 export class BucketlistComponent implements OnInit {
 
   constructor(
-    private auth: AuthService,
-    private bucketService: BucketService
+    public bucketService: BucketService
   ) { }
 
   ngOnInit() {
-    this.bucketService.loadBuckets(this.auth.me);
+    console.log('where are the buckets', this.bucketService.buckets$);
   }
 
 }

@@ -23,7 +23,7 @@ export class LoginPage {
     this.connect.isLoading = true;
     this.auth.login().then(user => {
       console.log('Login Response', user);
-      this.auth.me = user;
+      this.connect.auth$.next(user);
       this.router.navigate(['/']).then(() => {
         this.connect.isLoading = false;
       });
