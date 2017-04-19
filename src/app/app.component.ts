@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { FacebookService, InitParams } from 'ng2-facebook-sdk';
+import { FacebookService, InitParams } from 'ngx-facebook';
 import { AuthService, ConnectService } from './services';
 import { LoaderComponent } from './components';
 import { environment } from '../environments/environment';
@@ -15,7 +15,6 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  authChecked: boolean = false;
   constructor(
     private auth: AuthService,
     public connect: ConnectService,
@@ -30,6 +29,7 @@ export class AppComponent {
       cookie: true
     };
     fb.init(FBParams);
+    this.auth.checkLogin().subscribe((response) => console.log(response));
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd ) {
          if (this.connect.current_path) {
@@ -38,9 +38,6 @@ export class AppComponent {
          }
         this.connect.current_path = event.url;
         console.log('current_path:', event.url);
-        if (!this.authChecked) {
-          this.auth.checkAuth(event.url).then(() => this.authChecked = true);
-        }
       }
     });
   }

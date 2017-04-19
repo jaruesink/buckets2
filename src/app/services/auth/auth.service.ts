@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FacebookService, LoginResponse } from 'ng2-facebook-sdk';
+import { FacebookService, LoginResponse } from 'ngx-facebook';
 import { ConnectService } from '../connect/connect.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -10,41 +11,24 @@ export class AuthService {
     public router: Router,
     private fb: FacebookService,
     private connect: ConnectService
-  ) {
-    this.connect.auth$.subscribe(user => this.me = user);
-  }
+  ) {  }
 
-  currentAuth() {
-    const access_token = this.fb.getAuthResponse().accessToken;
-    return this.connect.loginService(access_token);
-  }
-
-  checkLogin() {
-    return new Promise((resolve, reject) => {
-      this.fb.getLoginStatus().then(response => {
-        if (response.status === 'connected') {
-          resolve();
-        }
-        reject();
-      });
-    });
-  }
-
-  checkAuth(current_path) {
-    return this.checkLogin().then(() => {
-      console.log('already logged in');
-      if (current_path === '/login') {
+  checkLogin(): Observable<any> {
+    return Observable
+    .fromPromise(this.fb.getLoginStatus())
+    .map(({authResponse}) => {
+      if (this.connect.current_path === '/login') {
         this.router.navigate(['/']);
       }
-      this.currentAuth().then(user => {
-        this.connect.auth$.next(user);
-        this.connect.isLoading = false;
-      });
-    }).catch((error) => {
-      console.log('user is not logged in', error);
+      this.connect.isLoading = false;
+      if (authResponse) { return authResponse; }
+      throw new Error('user is not logged in');
+    })
+    .catch(error => {
       this.router.navigate(['/login']).then(() => {
         this.connect.isLoading = false;
       });
+      return Observable.throw(`Error: ${error}`)
     });
   }
 

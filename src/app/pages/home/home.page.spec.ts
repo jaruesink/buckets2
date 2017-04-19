@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterLinkStubDirective, RouterOutletStubComponent } from '../../../../test/test_stubs/router_stubs';
-import { FacebookService } from 'ng2-facebook-sdk';
+import { FacebookService } from 'ngx-facebook';
 import { HomePage } from './home.page';
 import { BucketlistComponent } from '../../components';
 import { AuthService, BucketService, ConnectService } from '../../services';

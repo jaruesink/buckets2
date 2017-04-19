@@ -4270,6 +4270,10 @@ ng2-facebook-sdk@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ng2-facebook-sdk/-/ng2-facebook-sdk-2.1.1.tgz#29805ffe52edf3a3bc7a3c9e7191dc498b3ffe22"
 
+ngx-facebook@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/ngx-facebook/-/ngx-facebook-2.4.0.tgz#454141ce41118c1956d9db896c956f3891f8bbd7"
+
 no-case@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.1.tgz#7aeba1c73a52184265554b7dc03baf720df80081"

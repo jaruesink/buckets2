@@ -25,11 +25,11 @@ export const Components = [
 ];
 
 // Modules
-import { FacebookModule } from 'ng2-facebook-sdk';
+import { FacebookModule } from 'ngx-facebook';
 export const Modules = [ FacebookModule.forRoot() ];
 
 // Services
-import { FacebookService } from 'ng2-facebook-sdk';
+import { FacebookService } from 'ngx-facebook';
 import {
   AuthService,
   ConnectService,

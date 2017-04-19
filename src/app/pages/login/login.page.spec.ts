@@ -1,7 +1,7 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { LoginPage } from './login.page';
 import { AuthService, ConnectService } from '../../services';
-import { FacebookService } from 'ng2-facebook-sdk';
+import { FacebookService } from 'ngx-facebook';
 
 import { RouterTestingModule } from '@angular/router/testing';
 

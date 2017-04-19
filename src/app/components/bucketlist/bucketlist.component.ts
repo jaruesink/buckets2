@@ -12,8 +12,6 @@ export class BucketlistComponent implements OnInit {
     public bucketService: BucketService
   ) { }
 
-  ngOnInit() {
-    console.log('where are the buckets', this.bucketService.buckets$);
-  }
+  ngOnInit() { }
 
 }
