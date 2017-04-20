@@ -21,17 +21,24 @@ export class AppComponent {
     private fb: FacebookService,
     private router: Router
   ) {
+
     this.connect.isLoading = true;
+
     const FBParams: InitParams = {
       appId: environment.fbAppID,
       xfbml: true,
       version: 'v2.8',
       cookie: true
     };
+
     fb.init(FBParams);
-    this.auth.checkLogin().subscribe((response) =>
-      console.log('subscribing to auth.checkLogin(): ', response)
-    );
+
+    this.auth.checkLogin().subscribe(
+      (user) => {
+        console.log('user info: ', user)
+        if (!this.auth.me) { this.auth.me = user; }
+      });
+
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd ) {
          if (this.connect.current_path) {

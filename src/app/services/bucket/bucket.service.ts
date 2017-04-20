@@ -16,11 +16,14 @@ export class BucketService {
 
   }
   createBucket(data) {
-    // data.userID = this.auth.me._id;
+    data.userID = this.auth.me._id;
     return this.service.create(data);
   }
+
   loadBuckets() {
-    return this.service.find({query: {}})
+    return this.auth.checkLogin().flatMap(
+      (user) => this.service.find({ query: { userID: user._id } })
+    );
   }
   // loadBuckets() {
   //   return this.connect.auth$.flatMap(user => {

@@ -27,6 +27,7 @@ export class AuthService {
         this.router.navigate(['/']);
       }
       this.connect.isLoading = false;
+      if (this.me) { return Observable.of(this.me); }
       if (authResponse) { return this.getUser(authResponse); }
       throw new Error('user is not logged in');
     })

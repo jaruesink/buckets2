@@ -1,4 +1,4 @@
-<p>hello world</p>
-<!-- <p *ngFor="let bucket of bucketService.buckets$ | async as buckets;"> -->
-  <!-- {{bucket.name}} -->
-<!-- </p> -->
+<loader *ngIf="!(buckets$ | async)"></loader>
+<p *ngFor="let bucket of buckets$ | async as buckets;">
+  {{bucket.name}}
+</p>
