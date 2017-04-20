@@ -29,7 +29,9 @@ export class AppComponent {
       cookie: true
     };
     fb.init(FBParams);
-    this.auth.checkLogin().subscribe((response) => console.log(response));
+    this.auth.checkLogin().subscribe((response) =>
+      console.log('subscribing to auth.checkLogin(): ', response)
+    );
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd ) {
          if (this.connect.current_path) {

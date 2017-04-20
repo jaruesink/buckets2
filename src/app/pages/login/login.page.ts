@@ -21,12 +21,8 @@ export class LoginPage {
 
   login() {
     this.connect.isLoading = true;
-    this.auth.login().then(user => {
-      console.log('Login Response', user);
-      this.connect.auth$.next(user);
-      this.router.navigate(['/']).then(() => {
-        this.connect.isLoading = false;
-      });
+    this.auth.login().subscribe((response) => {
+      console.log('authResponse from logging in: ', response);
     });
   }
 }

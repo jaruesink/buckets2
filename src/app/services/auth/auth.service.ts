@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FacebookService, LoginResponse } from 'ngx-facebook';
+import { FacebookService, LoginResponse, AuthResponse } from 'ngx-facebook';
 import { ConnectService } from '../connect/connect.service';
 import { Observable } from 'rxjs';
 
@@ -13,15 +13,21 @@ export class AuthService {
     private connect: ConnectService
   ) {  }
 
+  getUser(authResponse): Observable<any> {
+    const access_token = authResponse.accessToken
+    return this.connect.loginService(access_token);
+  };
+
   checkLogin(): Observable<any> {
     return Observable
     .fromPromise(this.fb.getLoginStatus())
-    .map(({authResponse}) => {
+    .flatMap(({authResponse}) => {
+      console.log('Login Status Response from FB: ', authResponse);
       if (this.connect.current_path === '/login') {
         this.router.navigate(['/']);
       }
       this.connect.isLoading = false;
-      if (authResponse) { return authResponse; }
+      if (authResponse) { return this.getUser(authResponse); }
       throw new Error('user is not logged in');
     })
     .catch(error => {
@@ -32,12 +38,15 @@ export class AuthService {
     });
   }
 
-  login() {
-    return this.fb.login({scope: 'public_profile,email'})
-      .then((response: LoginResponse) => {
-        const access_token = response.authResponse.accessToken;
-        return this.connect.loginService(access_token);
-      }).catch((error: any) => console.error(error));
+  login(): Observable<any> {
+    return Observable
+      .fromPromise(this.fb.login({scope: 'public_profile,email'}))
+      .flatMap(({authResponse}: LoginResponse) => {
+        console.log('Login Response from FB: ', authResponse);
+        if (authResponse) { return this.getUser(authResponse); }
+        throw new Error('user could not be logged in');
+      })
+      .catch((error: any) => Observable.throw(`Error: ${error}`));
   }
 
 }

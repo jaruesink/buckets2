@@ -10,7 +10,6 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ConnectService {
-  auth$: Subject<any> = new Subject();
   previous_path: string;
   current_path: string;
   api = feathers()
