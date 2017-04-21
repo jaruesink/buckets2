@@ -1,5 +1,6 @@
 const Bucket = require('../models/bucket');
 const User = require('../models/user');
+const errors = require('feathers-errors');
 
 class BucketService {
   find({ query: { userID: _id } }) {
@@ -12,13 +13,17 @@ class BucketService {
     name,
     type,
     userID: _id
-    }, params, next) {
-    console.log('>>>>>>>>', _id);
+    }) {
     const new_bucket = new Bucket({ name, amount, type, isFund });
-    new_bucket.save();
-    return User.findOneAndUpdate({ _id }, { $push: { buckets: new_bucket } })
-      .then(bucket => Promise.resolve(bucket))
-      .catch(next);
+    return new_bucket.save((error) => {
+      if (error) {
+        return Promise.reject(
+          new errors.BadRequest('invalid create bucket form')
+        );
+      }
+      return User.findOneAndUpdate({ _id }, { $push: { buckets: new_bucket } })
+        .then(() => Promise.resolve(new_bucket));
+    });
   }
   remove(_id, params, next) {
     return Bucket.findByIdAndRemove({ _id })

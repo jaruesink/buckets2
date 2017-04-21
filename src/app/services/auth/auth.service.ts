@@ -22,7 +22,7 @@ export class AuthService {
     return Observable
     .fromPromise(this.fb.getLoginStatus())
     .flatMap(({authResponse}) => {
-      console.log('Login Status Response from FB: ', authResponse);
+      // console.log('Login Status Response from FB: ', authResponse);
       if (this.connect.current_path === '/login') {
         this.router.navigate(['/']);
       }
@@ -43,7 +43,7 @@ export class AuthService {
     return Observable
       .fromPromise(this.fb.login({scope: 'public_profile,email'}))
       .flatMap(({authResponse}: LoginResponse) => {
-        console.log('Login Response from FB: ', authResponse);
+        // console.log('Login Response from FB: ', authResponse);
         if (authResponse) { return this.getUser(authResponse); }
         throw new Error('user could not be logged in');
       })

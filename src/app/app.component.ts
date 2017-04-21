@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationStart } from '@angular/router';
 import { FacebookService, InitParams } from 'ngx-facebook';
 import { AuthService, ConnectService } from './services';
 import { LoaderComponent } from './components';
@@ -35,12 +35,12 @@ export class AppComponent {
 
     this.auth.checkLogin().subscribe(
       (user) => {
-        console.log('user info: ', user)
+        // console.log('user info: ', user)
         if (!this.auth.me) { this.auth.me = user; }
       });
 
     router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd ) {
+      if (event instanceof NavigationStart ) {
          if (this.connect.current_path) {
            this.connect.previous_path = this.connect.current_path;
            console.log('previous_path:', this.connect.previous_path);

@@ -15,6 +15,7 @@ export class BucketService {
     });
 
   }
+
   createBucket(data) {
     data.userID = this.auth.me._id;
     return this.service.create(data);

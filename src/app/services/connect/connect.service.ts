@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 
 declare var require: any;
 const feathers = require('feathers/client');
+const hooks = require('feathers-hooks');
 const reactive = require('feathers-reactive');
 const RxJS = require('rxjs');
 const rest = require('feathers-rest/client');
@@ -14,11 +15,18 @@ export class ConnectService {
   current_path: string;
   api = feathers()
     .configure(reactive(RxJS))
-    .configure(rest(environment.restUrl).fetch(window.fetch.bind(window)));
+    .configure(hooks())
+    .configure(rest(environment.restUrl)
+    .fetch(window.fetch.bind(window)));
   isLoading:boolean;
 
   constructor() {
     console.log('restUrl', environment.restUrl);
+    this.api.hooks({
+      error(hook) {
+        console.error(hook);
+      }
+    })
  }
 
   service(type) {

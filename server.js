@@ -70,11 +70,11 @@ console.info('port listening on: ', port);
 app.listen(port);
 
 // Set up error handling
-app.use(errorHandler({
-  html(error, req, res, next) {
-    // render your error view with the error object
-    res.render('error', error);
-  }
-}));
+app.use(errorHandler());
+
+// Catch all unhandled promise rejections
+process.on('unhandledRejection', (reason, p) => {
+  console.log(`Possibly Unhandled Rejection: ${reason}, `, p);
+});
 
 module.exports = app;
