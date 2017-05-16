@@ -1,14 +1,15 @@
 // Pages
 import { Routes } from '@angular/router'
-import { AddbucketPage, HomePage, LoginPage } from './app/pages';
+import { AddbucketPage, BucketPage, HomePage, LoginPage } from './app/pages';
 
 export const appRoutes: Routes = [
   { path: '', component: HomePage },
   { path: 'addbucket', component: AddbucketPage },
-  { path: 'login', component: LoginPage }
+  { path: 'bucket/:id', component: BucketPage },
+  { path: 'login', component: LoginPage },
 ];
 
-export const Pages = [ AddbucketPage, HomePage, LoginPage ];
+export const Pages = [ AddbucketPage, BucketPage, HomePage, LoginPage ];
 
 // Components
 import { AppComponent } from './app/app.component';

@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AddbucketPage } from './addbucket.page';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FacebookService } from 'ngx-facebook';
 import { FormsModule } from '@angular/forms';
 import { AuthService, BucketService, ConnectService } from '../../services';
 
@@ -13,7 +14,7 @@ describe('AddbucketPage', () => {
         AddbucketPage
       ],
       providers: [
-        AuthService, BucketService, ConnectService
+        AuthService, BucketService, ConnectService, FacebookService
       ],
       imports: [ FormsModule, RouterTestingModule ]
     }).compileComponents();

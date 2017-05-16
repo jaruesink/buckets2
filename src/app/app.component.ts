@@ -41,14 +41,15 @@ export class AppComponent {
 
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart ) {
-         if (this.connect.current_path) {
-           this.connect.previous_path = this.connect.current_path;
-           console.log('previous_path:', this.connect.previous_path);
-         }
+        if (this.connect.current_path) {
+          this.connect.previous_path = this.connect.current_path;
+          console.log('previous_path:', this.connect.previous_path);
+        }
         this.connect.current_path = event.url;
         console.log('current_path:', event.url);
       }
     });
+
   }
 
 }

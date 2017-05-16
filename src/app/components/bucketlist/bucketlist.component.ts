@@ -11,6 +11,8 @@ export class BucketlistComponent {
   buckets$: Observable<any> = this.bucketService.loadBuckets();
   constructor(
     public bucketService: BucketService
-  ) { }
+  ) {
+    this.buckets$.subscribe(buckets => console.log('buckets loaded:', buckets));
+  }
 
 }

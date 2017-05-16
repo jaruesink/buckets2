@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 export class BucketService {
 
   service = this.connect.service('bucket');
+  buckets: any;
+  bucket: any;
 
   constructor( private auth: AuthService, private connect: ConnectService ) {
 
@@ -21,17 +23,16 @@ export class BucketService {
     return this.service.create(data);
   }
 
-  loadBuckets() {
-    return this.auth.checkLogin().flatMap(
-      (user) => this.service.find({ query: { userID: user._id } })
+  loadBucket(id) {
+    return this.service.find({ query: { bucketID: id } }).then(
+      bucket => this.bucket = bucket
     );
   }
-  // loadBuckets() {
-  //   return this.connect.auth$.flatMap(user => {
-  //     if (user) {
-  //       return this.service.find({ query: { userID: user._id } });
-  //     }
-  //     return console.error('user not defined');
-  //   })
-  // }
+
+  loadBuckets() {
+    return this.auth.checkLogin().flatMap(
+      (user) => this.service.find({ query: { userID: user._id } }).then(
+        buckets => this.buckets = buckets
+      ));
+  }
 }

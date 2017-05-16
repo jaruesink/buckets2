@@ -1,32 +1,25 @@
 import { TestBed, async } from '@angular/core/testing';
+import { BucketPage } from './bucket.page';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RouterLinkStubDirective, RouterOutletStubComponent } from '../../../../test/test_stubs/router_stubs';
 import { FacebookService } from 'ngx-facebook';
-import { HomePage } from './home.page';
-import { BucketlistComponent, LoaderComponent } from '../../components';
+import { FormsModule } from '@angular/forms';
 import { AuthService, BucketService, ConnectService } from '../../services';
+import { LoaderComponent } from '../../components';
 
 let fixture, page, compiled;
 
-describe('HomePage', () => {
+describe('BucketPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        BucketlistComponent,
-        HomePage,
-        LoaderComponent,
-        RouterLinkStubDirective,
-        RouterOutletStubComponent
+        BucketPage, LoaderComponent
       ],
       providers: [
-        AuthService,
-        BucketService,
-        ConnectService,
-        FacebookService
+        AuthService, BucketService, ConnectService, FacebookService
       ],
-      imports: [ RouterTestingModule ]
+      imports: [ FormsModule, RouterTestingModule ]
     }).compileComponents();
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(BucketPage);
     page = fixture.debugElement.componentInstance;
     fixture.detectChanges();
     compiled = fixture.debugElement.nativeElement;

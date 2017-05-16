@@ -1,4 +1,6 @@
-<loader *ngIf="!(buckets$ | async)"></loader>
-<p *ngFor="let bucket of buckets$ | async as buckets;">
-  {{bucket.name}}
-</p>
+<loader *ngIf="!bucketService.buckets"></loader>
+<ul>
+  <li *ngFor="let bucket of bucketService.buckets">
+    <a [routerLink]="['/bucket', bucket._id]">{{bucket.name}}</a>
+  </li>
+</ul>

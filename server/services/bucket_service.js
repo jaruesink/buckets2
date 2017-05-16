@@ -3,9 +3,13 @@ const User = require('../models/user');
 const errors = require('feathers-errors');
 
 class BucketService {
-  find({ query: { userID: _id } }) {
-    return User.findOne({ _id }).populate('buckets')
-      .then(user => Promise.resolve(user.buckets));
+  find({ query: { userID, bucketID } }) {
+    if (userID) {
+      return User.findOne({ _id: userID }).populate('buckets')
+        .then(user => Promise.resolve(user.buckets));
+    }
+    return Bucket.findOne({ _id: bucketID })
+      .then(bucket => Promise.resolve(bucket));
   }
   create({
     amount,
