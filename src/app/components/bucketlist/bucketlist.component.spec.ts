@@ -1,7 +1,6 @@
 import { async, inject, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FacebookService } from 'ngx-facebook';
-import { LoaderComponent } from '../loader/loader.component';
 import { BucketlistComponent } from './bucketlist.component';
 import { AuthService, BucketService, ConnectService } from '../../services';
 
@@ -12,7 +11,7 @@ describe('BucketlistComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [ AuthService, BucketService, ConnectService, FacebookService ],
-      declarations: [ BucketlistComponent, LoaderComponent ],
+      declarations: [ BucketlistComponent ],
       imports: [ RouterTestingModule ]
     })
     .compileComponents();

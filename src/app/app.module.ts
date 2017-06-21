@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { appRoutes, Components, Modules, Services, Pages } from '../appstuff';
+import { 
+  AngularMaterialModules,
+  appRoutes,
+  Components,
+  Modules,
+  Services,
+  Pages
+} from '../appstuff';
 
 @NgModule({
   declarations: [
@@ -15,7 +22,8 @@ import { appRoutes, Components, Modules, Services, Pages } from '../appstuff';
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    ...Modules
+    ...Modules,
+    ...AngularMaterialModules
   ],
   providers: [ Services ],
   bootstrap: [Components[0]]

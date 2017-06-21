@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'login-page',
   template: `
   <h1>{{title}}</h1>
-  <button (click)="login()">Login</button>
+  <button md-button (click)="login()">Login</button>
   `,
   styleUrls: ['./login.page.scss']
 })

@@ -30,7 +30,7 @@ export class ConnectService {
  }
 
   service(type) {
-      return this.api.service(`api/${type}`);
+    return this.api.service(`api/${type}`);
   }
 
   loginService(access_token) {

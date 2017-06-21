@@ -7,7 +7,7 @@ import { HeaderComponent } from '../../components';
   <header [title]="title"></header>
   <main class="padding_2">
     <bucketlist></bucketlist>
-    <button routerLink="/addbucket">Add Bucket</button>
+    <button md-button routerLink="/addbucket">Add Bucket</button>
   </main>
   `,
   styleUrls: ['./home.page.scss']

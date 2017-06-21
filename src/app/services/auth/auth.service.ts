@@ -26,14 +26,12 @@ export class AuthService {
       if (this.connect.current_path === '/login') {
         this.router.navigate(['/']);
       }
-      this.connect.isLoading = false;
       if (this.me) { return Observable.of(this.me); }
       if (authResponse) { return this.getUser(authResponse); }
       throw new Error('user is not logged in');
     })
     .catch(error => {
       this.router.navigate(['/login']).then(() => {
-        this.connect.isLoading = false;
       });
       return Observable.throw(`Error: ${error}`)
     });

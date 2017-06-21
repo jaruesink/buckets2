@@ -1,5 +1,4 @@
 <header [title]="title"></header>
-<loader *ngIf="!bucketService.bucket"></loader>
 <div *ngIf="bucketService.bucket">
   {{bucketService.bucket.name}}
 </div>

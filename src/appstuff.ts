@@ -14,20 +14,31 @@ export const Pages = [ AddbucketPage, BucketPage, HomePage, LoginPage ];
 // Components
 import { AppComponent } from './app/app.component';
 import {
-  LoaderComponent,
   HeaderComponent,
   BucketlistComponent
 } from './app/components';
 export const Components = [
   AppComponent,
-  LoaderComponent,
   HeaderComponent,
   BucketlistComponent
 ];
 
 // Modules
 import { FacebookModule } from 'ngx-facebook';
-export const Modules = [ FacebookModule.forRoot() ];
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+export const Modules = [ FacebookModule.forRoot(), BrowserAnimationsModule ];
+
+// Angular Material Modules
+import {
+  MdButtonModule,
+  MdProgressBarModule,
+  MdToolbarModule
+} from '@angular/material';
+export const AngularMaterialModules = [
+  MdButtonModule,
+  MdProgressBarModule,
+  MdToolbarModule
+];
 
 // Services
 import { FacebookService } from 'ngx-facebook';

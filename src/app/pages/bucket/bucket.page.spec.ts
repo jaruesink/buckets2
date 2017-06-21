@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FacebookService } from 'ngx-facebook';
 import { FormsModule } from '@angular/forms';
 import { AuthService, BucketService, ConnectService } from '../../services';
-import { LoaderComponent } from '../../components';
 
 let fixture, page, compiled;
 
@@ -12,7 +11,7 @@ describe('BucketPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        BucketPage, LoaderComponent
+        BucketPage
       ],
       providers: [
         AuthService, BucketService, ConnectService, FacebookService

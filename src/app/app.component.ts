@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { Router, Event, NavigationStart } from '@angular/router';
 import { FacebookService, InitParams } from 'ngx-facebook';
 import { AuthService, ConnectService } from './services';
-import { LoaderComponent } from './components';
 import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   template: `
   <main>
-    <loader *ngIf="connect.isLoading"></loader>
+    <md-progress-bar mode="indeterminate" *ngIf="connect.isLoading"></md-progress-bar>
     <router-outlet [ngClass]="{'loading': connect.isLoading}"></router-outlet>
   </main>`,
   styleUrls: ['./app.component.scss']

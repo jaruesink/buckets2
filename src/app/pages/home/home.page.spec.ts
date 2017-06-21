@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouterLinkStubDirective, RouterOutletStubComponent } from '../../../../test/test_stubs/router_stubs';
 import { FacebookService } from 'ngx-facebook';
 import { HomePage } from './home.page';
-import { BucketlistComponent, LoaderComponent } from '../../components';
+import { BucketlistComponent } from '../../components';
 import { AuthService, BucketService, ConnectService } from '../../services';
 
 let fixture, page, compiled;
@@ -14,7 +14,6 @@ describe('HomePage', () => {
       declarations: [
         BucketlistComponent,
         HomePage,
-        LoaderComponent,
         RouterLinkStubDirective,
         RouterOutletStubComponent
       ],

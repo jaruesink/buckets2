@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, BucketService } from '../../services';
+import { AuthService, BucketService, ConnectService } from '../../services';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -7,12 +7,16 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './bucketlist.component.html',
   styleUrls: ['./bucketlist.component.scss']
 })
-export class BucketlistComponent {
+export class BucketlistComponent implements OnInit {
   buckets$: Observable<any> = this.bucketService.loadBuckets();
   constructor(
-    public bucketService: BucketService
-  ) {
-    this.buckets$.subscribe(buckets => console.log('buckets loaded:', buckets));
+    public bucketService: BucketService, public connect: ConnectService
+  ) {}
+  ngOnInit() {
+    this.buckets$.subscribe(buckets => {
+      this.connect.isLoading = false;
+      console.log('buckets loaded:', buckets);
+    });
   }
 
 }
