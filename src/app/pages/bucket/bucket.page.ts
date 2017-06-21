@@ -12,7 +12,7 @@ export class BucketPage {
   title = 'Bucket';
   bucket:any = {};
   constructor(
-    private bucketService: BucketService,
+    public bucketService: BucketService,
     public router: Router,
     private route: ActivatedRoute
   ) {
