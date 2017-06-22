@@ -15,11 +15,13 @@ export const Pages = [ AddbucketPage, BucketPage, HomePage, LoginPage ];
 import { AppComponent } from './app/app.component';
 import {
   HeaderComponent,
+  BucketcardComponent,
   BucketlistComponent
 } from './app/components';
 export const Components = [
   AppComponent,
   HeaderComponent,
+  BucketcardComponent,
   BucketlistComponent
 ];
 
@@ -31,11 +33,13 @@ export const Modules = [ FacebookModule.forRoot(), BrowserAnimationsModule ];
 // Angular Material Modules
 import {
   MdButtonModule,
+  MdCardModule,
   MdProgressBarModule,
   MdToolbarModule
 } from '@angular/material';
 export const AngularMaterialModules = [
   MdButtonModule,
+  MdCardModule,
   MdProgressBarModule,
   MdToolbarModule
 ];

@@ -5,6 +5,11 @@
   background: $header_bg_color;
   height: 50px;
 
+  h1 {
+    font-weight: 300;
+    font-size: 24px;
+  }
+
   button, h1 {
     display: inline-block;
   }

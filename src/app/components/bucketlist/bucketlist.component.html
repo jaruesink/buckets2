@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let bucket of bucketService.buckets">
-    <a [routerLink]="['/bucket', bucket._id]">{{bucket.name}}</a>
+    <bucketcard [BucketData]="bucket"></bucketcard>
   </li>
 </ul>
