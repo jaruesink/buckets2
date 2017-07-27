@@ -1,7 +1,14 @@
-<div id="header" class="row flex space_between">
-  <div class="flex_item margin_left">
-    <button md-button *ngIf="connect.current_path && connect.current_path !== '/'" (click)="goBack()">Back</button>
-    <h1 class="margin_left">{{title}}</h1>
+<div class="header">
+  <div>
+    <button
+      md-button
+      class="header-back-button"
+      *ngIf="connect.current_path && connect.current_path !== '/'"
+      (click)="goBack()"
+    >
+      <md-icon class="material-icons">arrow_back</md-icon>
+    </button>
+    <h1 class="header-title">{{title}}</h1>
   </div>
-  <img class="flex_item" src="{{auth.me?.picture}}" alt="{{auth.me?.name}}">
+  <img class="header-profile" src="{{auth.me?.picture}}" alt="{{auth.me?.name}}">
 </div>

@@ -19,10 +19,14 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/normalize.css/normalize.css",
-        "../node_modules/flex_grid/dist/flex_grid.scss",
+        "../node_modules/reset-css/_reset.scss",
         "styles.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "styles"
+        ]
+      },
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

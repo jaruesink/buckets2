@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../components';
-import { BucketService } from '../../services';
+import { BucketService, ConnectService } from '../../services';
 
 @Component({
   selector: 'bucket-page',
@@ -13,11 +13,16 @@ export class BucketPage {
   bucket:any = {};
   constructor(
     public bucketService: BucketService,
+    public connectService: ConnectService,
     public router: Router,
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe(({id}) => {
-      this.bucketService.loadBucket(id);
+      console.log(id);
+      this.bucketService.loadBucket(id).then(bucket => {
+        this.bucket = bucket;
+        this.connectService.isLoading = false;
+      });
     });
   }
   ngOnDestroy() {

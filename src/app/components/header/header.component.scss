@@ -1,16 +1,25 @@
-@import '../../../styles/colors';
+@import 'colors';
 
-#header {
+.header {
   align-items: center;
   background: $header_bg_color;
+  display: flex;
+  justify-content: space-between;
   height: 50px;
+  padding: 0 0 0 16px;
 
-  h1 {
+  &-back-button {
+    display: inline-block;
+    margin-right: 16px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 0;
+  }
+
+  &-title {
+    display: inline-block;
     font-weight: 300;
     font-size: 24px;
   }
 
-  button, h1 {
-    display: inline-block;
-  }
 }
