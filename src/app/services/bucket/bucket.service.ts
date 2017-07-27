@@ -22,6 +22,10 @@ export class BucketService {
     data.userID = this.auth.me._id;
     return this.service.create(data);
   }
+  
+  deleteBucket(id) {
+    return this.service.remove(id);
+  }
 
   loadBucket(id) {
     return this.service.find({ query: { bucketID: id } }).then(

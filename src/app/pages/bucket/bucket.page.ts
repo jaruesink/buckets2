@@ -28,4 +28,9 @@ export class BucketPage {
   ngOnDestroy() {
     this.bucketService.bucket = null;
   }
+  deleteBucket(id) {
+    this.bucketService.deleteBucket(id).then(() => {
+      this.router.navigate(['/']);
+    });
+  }
 }
