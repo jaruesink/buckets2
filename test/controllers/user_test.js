@@ -14,8 +14,8 @@ require('../../server/models/user');
 const User = mongoose.model('User');
 const Bucket = mongoose.model('Bucket');
 
-describe('User Services', () => {
-  it('can create a user', (done) => {
+describe('Users', () => {
+  it('can be created', (done) => {
     User.count().then((count) => {
       user_service.create({
         fbid: 1234567890,
@@ -31,7 +31,7 @@ describe('User Services', () => {
     });
   });
 
-  it('can edit a user', (done) => {
+  it('can be edited', (done) => {
     const user = new User({
       fbid: 1234567890,
       name: 'Test User',
@@ -52,7 +52,7 @@ describe('User Services', () => {
     });
   });
 
-  it('can delete a user', (done) => {
+  it('can be deleted', (done) => {
     const user = new User({
       fbid: 1234567890,
       name: 'Test User',
@@ -71,32 +71,33 @@ describe('User Services', () => {
     });
   });
 
-  // TODO: This is clearly not how you push to arrays of items...
-  // it('can have a bucket', (done) => {
-  //   const user = new User({
-  //     fbid: 1234567890,
-  //     name: 'Test User',
-  //     email: 'test@email.com'
-  //   });
+  // TODO: Ask Derek if these schemas make sense
+  it('can have a bucket', (done) => {
+    const user = new User({
+      fbid: 1234567890,
+      name: 'Test User',
+      email: 'test@email.com',
+      buckets: []
+    });
 
-  //   const bucket = new Bucket({
-  //     name: 'Test Bucket',
-  //     type: 'budget',
-  //     amount: 500
-  //   });
+    const bucket = new Bucket({
+      name: 'Test Bucket',
+      type: 'budget',
+      amount: 500,
+      users: []
+    });
 
-  //   user.save().then(() => {
-  //     bucket.users.push(user);
-  //     user.buckets.push(bucket);
-  //     Promise.all([bucket.save(), user.save()])
-  //       .then(() => {
-  //         User.findOne(user._id)
-  //           .populate('buckets')
-  //           .then((found_user) => {
-  //             assert(user._id.toString() === found_user.buckets[0].users[0].toString());
-  //             done();
-  //           });
-  //       });
-  //   });
-  // });
+    user.buckets.push(bucket);
+    user.save().then((saved_user) => {
+      bucket.users.push(saved_user);
+      bucket.save().then(() => {
+        User.findOne(user._id)
+          .populate('buckets')
+          .then((found_user) => {
+            assert(found_user.buckets[0]._id.toString() === bucket._id.toString());
+            done();
+          });
+      });
+    });
+  });
 });

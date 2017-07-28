@@ -21,7 +21,11 @@ const BucketSchema = new Schema({
   isFund: {
     type: Boolean,
     default: false
-  }
+  },
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 const Bucket = mongoose.model('Bucket', BucketSchema);
