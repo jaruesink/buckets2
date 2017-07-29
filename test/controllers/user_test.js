@@ -11,8 +11,8 @@ const user_service = app.service('api/user');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 require('../../server/models/user');
-const User = mongoose.model('User');
 const Bucket = mongoose.model('Bucket');
+const User = mongoose.model('User');
 
 describe('Users', () => {
   it('can be created', (done) => {
@@ -71,32 +71,26 @@ describe('Users', () => {
     });
   });
 
-  // TODO: Ask Derek if these schemas make sense
-  it('can have a bucket', (done) => {
+  it('can retrieve buckets for an ownerID', (done) => {
     const user = new User({
       fbid: 1234567890,
       name: 'Test User',
-      email: 'test@email.com',
-      buckets: []
+      email: 'test@email.com'
     });
 
     const bucket = new Bucket({
       name: 'Test Bucket',
       type: 'budget',
       amount: 500,
-      users: []
+      ownerID: user._id
     });
 
-    user.buckets.push(bucket);
     user.save().then((saved_user) => {
-      bucket.users.push(saved_user);
-      bucket.save().then(() => {
-        User.findOne(user._id)
-          .populate('buckets')
-          .then((found_user) => {
-            assert(found_user.buckets[0]._id.toString() === bucket._id.toString());
-            done();
-          });
+      bucket.save().then((saved_bucket) => {
+        Bucket.find({ ownerID: saved_user._id }).then((returned_buckets) => {
+          assert(saved_bucket._id.toString() === returned_buckets[0]._id.toString());
+          done();
+        });
       });
     });
   });

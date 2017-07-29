@@ -12,21 +12,16 @@ class BucketService {
       .then(bucket => Promise.resolve(bucket));
   }
   create({
+    name,
     amount,
     isFund = false,
-    name,
     type,
-    userID: _id
+    ownerID
     }) {
-    const new_bucket = new Bucket({ name, amount, type, isFund });
+    const new_bucket = new Bucket({ name, amount, type, isFund, ownerID });
     return new_bucket.save((error) => {
-      if (error) {
-        return Promise.reject(
-          new errors.BadRequest('invalid create bucket form')
-        );
-      }
-      return User.findOneAndUpdate({ _id }, { $push: { buckets: new_bucket } })
-        .then(() => Promise.resolve(new_bucket));
+      if (error) { return Promise.reject(new errors.BadRequest('invalid create bucket form')); }
+      return Promise.resolve(new_bucket);
     });
   }
   remove(_id, params, next) {

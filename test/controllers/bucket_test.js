@@ -11,20 +11,31 @@ const bucket_service = app.service('api/bucket');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 require('../../server/models/bucket');
+require('../../server/models/user');
 const Bucket = mongoose.model('Bucket');
+const User = mongoose.model('User');
 
 describe('Bucket Services', () => {
-  it('can create a bucket', (done) => {
-    Bucket.count().then((count) => {
-      bucket_service.create({
-        name: 'Test Bucket',
-        type: 'budget',
-        amount: 500
-      }, (err) => { if (err) { console.error(err); } })
-      .then((new_bucket) => {
-        Bucket.count().then((new_count) => {
-          assert(count + 1 === new_count);
-          done();
+  it.only('can create a bucket', (done) => {
+    const user = new User({
+      fbid: 1234567890,
+      name: 'Test User',
+      email: 'test@email.com'
+    });
+
+    user.save().then((saved_user) => {
+      Bucket.count().then((count) => {
+        bucket_service.create({
+          name: 'Test Bucket',
+          type: 'budget',
+          amount: 500,
+          ownerID: saved_user._id
+        }, (err) => { if (err) { console.error(err); } })
+        .then((created_bucket) => {
+          Bucket.count().then((new_count) => {
+            assert(count + 1 === new_count);
+            done();
+          });
         });
       });
     });

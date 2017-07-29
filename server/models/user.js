@@ -21,11 +21,7 @@ const UserSchema = new Schema({
   },
   status: {
     type: String
-  },
-  buckets: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Bucket'
-  }]
+  }
 });
 
 const User = mongoose.model('User', UserSchema);

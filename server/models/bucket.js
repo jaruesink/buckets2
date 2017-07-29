@@ -22,10 +22,11 @@ const BucketSchema = new Schema({
     type: Boolean,
     default: false
   },
-  users: [{
+  ownerID: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+    ref: 'User',
+    required: true
+  }
 });
 
 const Bucket = mongoose.model('Bucket', BucketSchema);

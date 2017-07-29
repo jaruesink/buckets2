@@ -20,7 +20,7 @@ const user = new User({
 });
 
 describe('The realtime app', () => {
-  it('can save a user', (done) => {
+  it('can get a status', (done) => {
     status.on('updated', ({ status: new_status }) => {
       assert(new_status === 'I have a status.');
       done();
