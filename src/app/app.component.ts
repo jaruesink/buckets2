@@ -35,7 +35,10 @@ export class AppComponent {
     this.auth.checkLogin().subscribe(
       (user) => {
         // console.log('user info: ', user)
-        if (!this.auth.me) { this.auth.me = user; }
+        if (!this.auth.me) {
+          this.auth.me = user;
+          this.connect.isLoading = false;
+        }
       });
 
     router.events.subscribe((event: Event) => {

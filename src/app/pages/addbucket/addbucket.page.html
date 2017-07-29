@@ -1,16 +1,22 @@
 <header [title]="title"></header>
-<form #addBucketForm="ngForm" (ngSubmit)="addBucketFormSubmit(addBucketForm)" autocomplete="off" class="margin_2">
-  <label for="name">Name</label>
-  <input id="name" name="name" type="text" [(ngModel)]="bucket.name"/>
+<form #addBucketForm="ngForm" (ngSubmit)="addBucketFormSubmit(addBucketForm)" autocomplete="off">
+  <md-input-container>
+    <input mdInput type="text" placeholder="Bucket Name" [(ngModel)]="bucket.name" name="name">
+  </md-input-container>
   <br><br>
-  <label for="type">Bucket Type</label>
-  <select id="type" name="type" [(ngModel)]="bucket.type">
-    <option value="budget" selected="selected">Monthly Budget</option>
-    <option value="savings">Savings Goal</option>
-  </select>
+  <md-select placeholder="Bucket Type" [(ngModel)]="bucket.type" name="type">
+    <md-option [value]="'budget'">
+      Monthly Budget
+    </md-option>
+    <md-option [value]="'savings'">
+      Savings Goal
+    </md-option>
+  </md-select>
   <br><br>
-  <label for="amount">Amount</label>
-  <input id="amount" name="amount" type="number" min="0.01" step="0.01"  [(ngModel)]="bucket.amount" />
+  <md-input-container>
+    <input mdInput type="number" placeholder="Bucket Amount" min="0.01" step="0.01" [(ngModel)]="bucket.amount" name="amount">
+  </md-input-container>
   <br><br>
-  <button md-button type="submit">Add Bucket</button>
+  <hr>
+  <button md-raised-button type="submit">Add Bucket</button>
 </form>

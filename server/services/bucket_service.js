@@ -5,11 +5,14 @@ const errors = require('feathers-errors');
 class BucketService {
   find({ query: { userID, bucketID } }) {
     if (userID) {
-      return User.findOne({ _id: userID }).populate('buckets')
-        .then(user => Promise.resolve(user.buckets));
+      return Bucket.find({ ownerID: userID })
+        .then(returned_buckets => Promise.resolve(returned_buckets));
     }
-    return Bucket.findOne({ _id: bucketID })
-      .then(bucket => Promise.resolve(bucket));
+    if (bucketID) {
+      return Bucket.findOne({ _id: bucketID })
+        .then(bucket => Promise.resolve(bucket));
+    }
+    return Promise.reject(new errors.BadRequest('incorrect bucket query provided'));
   }
   create({
     name,

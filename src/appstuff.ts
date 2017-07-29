@@ -34,12 +34,16 @@ export const Modules = [ FacebookModule.forRoot(), BrowserAnimationsModule ];
 import {
   MdButtonModule,
   MdCardModule,
+  MdInputModule,
+  MdSelectModule,
   MdProgressBarModule,
   MdToolbarModule
 } from '@angular/material';
 export const AngularMaterialModules = [
   MdButtonModule,
   MdCardModule,
+  MdInputModule,
+  MdSelectModule,
   MdProgressBarModule,
   MdToolbarModule
 ];

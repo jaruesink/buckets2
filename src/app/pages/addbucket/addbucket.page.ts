@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../../components';
-import { BucketService } from '../../services';
+import { BucketService, ConnectService } from '../../services';
 
 @Component({
   selector: 'addbucket-page',
@@ -13,6 +13,7 @@ export class AddbucketPage {
   bucket:any = {};
   constructor(
     private bucketService: BucketService,
+    public connectService: ConnectService,
     public router: Router
   ) { }
   addBucketFormSubmit(form) {
