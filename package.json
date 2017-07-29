@@ -9,6 +9,7 @@
     "build": "ng build --prod --aot",
     "p": "yarn build && git add . && git commit --allow-empty -m \"latest build\" && git push origin master",
     "test": "ng test",
+    "startDatabase": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build_server": "nodemon --exec 'ng build && node server.js'",
@@ -29,6 +30,7 @@
     "@angular/platform-browser-dynamic": "^4.2.3",
     "@angular/router": "^4.2.3",
     "body-parser": "^1.17.1",
+    "config": "^1.26.1",
     "express": "^4.14.0",
     "feathers": "^2.0.3",
     "feathers-authentication": "^0.7.12",
@@ -51,6 +53,7 @@
     "reset-css": "^2.2.1",
     "rxjs": "^5.1.1",
     "socket.io-client": "^1.7.3",
+    "tracer": "^0.8.9",
     "uws": "^8.14.0"
   },
   "devDependencies": {
