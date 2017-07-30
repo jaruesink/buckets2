@@ -4,31 +4,22 @@ const errorHandler = require('feathers-errors/handler');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('config');
+const logger = require('tracer').colorConsole();
 // const http = require('http');
 // const service = require('feathers-mongoose');
 mongoose.Promise = global.Promise;
 
-// Connect to Mongoose if not in a test environment
-if (process.env.NODE_ENV !== 'test') {
-  if (process.env.NODE_ENV !== 'prod') {
-    const options = {
-      server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-      replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
-    };
-    mongoose.connect(
-      'mongodb://username:password@ds157320.mlab.com:57320/buckets_dev',
-      options
-    );
-  } else {
-    const options = {
-      server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-      replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
-    };
-    mongoose.connect(
-      'mongodb://username:password@ds141209.mlab.com:41209/buckets',
-      options
-    );
-  }
+const options = config.get('buckets.db.options');
+const bucketsDbUrl = config.get('buckets.db.url');
+
+// connect to the mongodb database if it's setup
+if (bucketsDbUrl) {
+  logger.info(`connecting to mongodb at url ${bucketsDbUrl}`);
+  mongoose.connect(
+    bucketsDbUrl,
+    options
+  );
 }
 
 // Initiate our app

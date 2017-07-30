@@ -1,20 +1,21 @@
-/* global before, beforeEach */
+/* global beforeEach, after */
 
-require('../server');
-
+const server = require('../server');
+const logger = require('tracer').colorConsole();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-before((done) => {
-  mongoose.connect('mongodb://username:password@ds141209.mlab.com:41209/buckets_test');
-  mongoose.connection
-    .once('open', () => done())
-    .on('error', (err) => {
-      console.error(err);
-    });
+beforeEach((done) => {
+  logger.info('Truncating test database');
+  const { buckets, users } = mongoose.connection.collections;
+  Promise.all([
+    buckets.drop(),
+    users.drop(),
+  ]).then(() => done())
+    .catch(() => done());
 });
 
-beforeEach((done) => {
+after((done) => {
   const { buckets, users } = mongoose.connection.collections;
   Promise.all([
     buckets.drop(),
