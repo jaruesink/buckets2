@@ -1,6 +1,7 @@
 const Bucket = require('../models/bucket');
 const User = require('../models/user');
 const errors = require('feathers-errors');
+const logger = require('../logger');
 
 class BucketService {
   find({ query: { userID, bucketID } }) {
@@ -21,6 +22,7 @@ class BucketService {
     type,
     ownerID
     }) {
+    logger.info(`creating bucket ${name}`);
     const new_bucket = new Bucket({ name, amount, type, isFund, ownerID });
     return new_bucket.save((error) => {
       if (error) { return Promise.reject(new errors.BadRequest('invalid create bucket form')); }
