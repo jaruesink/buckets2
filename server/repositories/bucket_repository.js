@@ -1,13 +1,7 @@
 const Bucket = require('../models/bucket');
 const Promise = require('bluebird');
 const logger = require('../logger');
-class PageDef {
-  of({ data, pageNumber, pageSize, totalRecords }) {
-    return { data, pageNumber, pageSize, totalRecords };
-  }
-}
-
-const Page = new PageDef();
+const PageUtils = require('../utils/page_utils');
 
 class BucketRepository {
   findBucketsByUserId({ ownerID, pageNumber, pageSize }) {
@@ -21,7 +15,7 @@ class BucketRepository {
     return Promise.props({ results: resultsPromise, count: countPromise })
       .then(({ results, count }) =>
         Promise.resolve(
-          Page.of({
+          PageUtils.of({
             data: results,
             pageNumber,
             pageSize,
