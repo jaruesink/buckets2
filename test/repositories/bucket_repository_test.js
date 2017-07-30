@@ -22,7 +22,7 @@ describe('BucketRepository', () => {
         amount: 500,
         ownerID: new_user._id
       }).then((created_bucket) => {
-        BucketRepository.findBucketsByUserId({
+        BucketRepository.findBucketsForOwner({
           ownerID: created_bucket.ownerID,
           pageNumber: 1,
           pageSize: 10

@@ -4,7 +4,7 @@ const logger = require('../logger');
 const PageUtils = require('../utils/page_utils');
 
 class BucketRepository {
-  findBucketsByUserId({ ownerID, pageNumber, pageSize }) {
+  findBucketsForOwner({ ownerID, pageNumber, pageSize }) {
     const query = Bucket.find({ ownerID })
       .sort({ name: -1 });
     const resultsPromise = query
