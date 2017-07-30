@@ -1,7 +1,6 @@
 /* global beforeEach, after */
-
 const server = require('../server');
-const logger = server.logger;
+const logger = require('../server/logger');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
