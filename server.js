@@ -5,7 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('config');
-const logger = require('tracer').colorConsole();
+const logger = require('./server/logger');
 // const http = require('http');
 // const service = require('feathers-mongoose');
 mongoose.Promise = global.Promise;
@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 // Initiate our app
 const app = feathers();
 
-module.exports = { app, logger };
+module.exports = app;
 
 // connect to the mongodb database
 const options = config.get('buckets.db.options');
