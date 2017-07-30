@@ -10,20 +10,19 @@ const logger = require('tracer').colorConsole();
 // const service = require('feathers-mongoose');
 mongoose.Promise = global.Promise;
 
-const options = config.get('buckets.db.options');
-const bucketsDbUrl = config.get('buckets.db.url');
-
-// connect to the mongodb database if it's setup
-if (bucketsDbUrl) {
-  logger.info(`connecting to mongodb at url ${bucketsDbUrl}`);
-  mongoose.connect(
-    bucketsDbUrl,
-    options
-  );
-}
-
 // Initiate our app
 const app = feathers();
+
+module.exports = { app, logger };
+
+// connect to the mongodb database
+const options = config.get('buckets.db.options');
+const bucketsDbUrl = config.get('buckets.db.url');
+logger.info(`connecting to mongodb at url ${bucketsDbUrl}`);
+mongoose.connect(
+  bucketsDbUrl,
+  options
+);
 
 // Get our realtime routes
 const realtime_routes = require('./server/routes/realtime');
@@ -55,7 +54,7 @@ app.get('*', (req, res) => {
 // Get port from environment and store in Express.
 const port = process.env.PORT || '3000';
 // app.set('port', port);
-console.info('port listening on: ', port);
+logger.info('express listening on port: ', port);
 
 // Listen on provided port, on all network interfaces.
 app.listen(port);
@@ -65,7 +64,5 @@ app.use(errorHandler());
 
 // Catch all unhandled promise rejections
 process.on('unhandledRejection', (reason, p) => {
-  console.log(`Possibly Unhandled Rejection: ${reason}, `, p);
+  logger.error(`Possibly Unhandled Rejection: ${reason}, `, p);
 });
-
-module.exports = app;

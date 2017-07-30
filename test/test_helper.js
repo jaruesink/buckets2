@@ -1,7 +1,7 @@
 /* global beforeEach, after */
 
 const server = require('../server');
-const logger = require('tracer').colorConsole();
+const logger = server.logger;
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
