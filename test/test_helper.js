@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 beforeEach((done) => {
-  logger.info('Truncating test database');
+  logger.debug('Truncating test database');
   const { buckets, users } = mongoose.connection.collections;
   Promise.all([
     buckets.drop(),
