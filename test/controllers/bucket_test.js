@@ -32,7 +32,6 @@ describe('Bucket Services', () => {
           amount: 500,
           ownerID: saved_user._id
         };
-        logger.info(`creating bucket ${JSON.stringify(bucket_to_create)}`);
         bucket_service.create(bucket_to_create, (err) => { if (err) { logger.error(err); } })
         .then((created_bucket) => {
           Bucket.count().then((new_count) => {
