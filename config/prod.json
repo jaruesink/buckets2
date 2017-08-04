@@ -1,7 +1,0 @@
-{
-    "buckets": {
-        "db": {
-            "url": "mongodb://username:password@ds141209.mlab.com:41209/buckets"
-        }
-    }
-}

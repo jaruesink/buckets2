@@ -1,7 +1,0 @@
-{
-    "buckets": {
-        "db": {
-            "url": "mongodb://127.0.0.1/buckets_test"
-        }
-    }
-}
