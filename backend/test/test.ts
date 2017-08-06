@@ -36,8 +36,7 @@ interface UserData {
   }
   
   @test('can be created') userCreatedTest() {
-    console.log('hello');
-    User.count({}).then((count:number) => {console.log(count)});
+    User.count({}).then((count:number) => {console.log('????', count)});
     // this.count_users().then(count => {
       // console.log('count', count);
       // }).catch(err => console.log('err', err))
