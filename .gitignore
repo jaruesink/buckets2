@@ -3,6 +3,8 @@
 # compiled output
 /tmp
 /out-tsc
+/test/test-tsc
+/frontend/dist
 
 # dependencies
 /node_modules
