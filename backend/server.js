@@ -52,7 +52,7 @@ app.get('*', (req, res) => {
 });
 
 // Get port from environment and store in Express.
-const port = process.env.PORT || '3000';
+const port = config.get('buckets.server.port');
 // app.set('port', port);
 logger.info('express listening on port: ', port);
 
