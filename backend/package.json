@@ -7,7 +7,9 @@
     "start_db": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
     "build_server": "nodemon --exec 'node server.js'",
     "start_server": "NODE_ENV=dev nodemon --exec 'node server.js'",
-    "test_server": "NODE_ENV=test nodemon --exec 'mocha --recursive'"
+    "test_server": "NODE_ENV=test nodemon --exec 'mocha --recursive'",
+    "compile_tests": "tsc -p tsconfig.test.json",
+    "test": "NODE_ENV=dev node server.js & nodemon --watch test -e ts --exec 'yarn compile_tests && mocha --opts mocha.opts'"
   },
   "private": true,
   "dependencies": {
@@ -35,8 +37,10 @@
     "uws": "^8.14.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.0.2",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "chai": "^4.1.1",
     "codelyzer": "~2.0.0",
     "core-js": "^2.4.1",
     "eslint": "^3.18.0",
@@ -53,7 +57,9 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "mocha": "^3.2.0",
+    "mocha-typescript": "^1.1.7",
     "protractor": "~5.1.0",
+    "source-map-support": "^0.4.15",
     "supertest": "^3.0.0",
     "ts-helpers": "^1.1.1",
     "ts-node": "~2.0.0",
