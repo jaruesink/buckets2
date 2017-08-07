@@ -44,6 +44,14 @@ db.connect(db_connection_url, db_connection_options, (error) => {
     return user_service.create(data, (err) => { if (err) { console.error(err); } });
   }
 
+  findOneUser(id) {
+    return UserModel.findOne({ _id: id });
+  }
+
+  removeUserService(id) {
+    return user_service.remove(id, (err) => { if (err) { console.error(err); } });
+  }
+
   saveUser(user): Promise<UserType> {
     return user.save();
   }
@@ -72,12 +80,43 @@ db.connect(db_connection_url, db_connection_options, (error) => {
     const new_name = 'Joe Tester';
     await this.saveUser(new_user).then(() =>
       this.updateUserService(new_user._id, {name: new_name}).then(edited_user =>
-        UserModel.findOne({_id: new_user._id}).then(found_user => {
+        this.findOneUser(new_user._id).then(found_user => {
           logger.debug(`(found_user.name === new_name) ${found_user.name} === ${new_name}`);
           assert(found_user.name === new_name);
         })
       )
     )
   }
+
+  @test async 'can be deleted'() {
+    const new_user = this.createNewUser(this.userData);
+    await this.saveUser(new_user).then(() =>
+      this.removeUserService(new_user._id).then(() => 
+        this.findOneUser(new_user._id).then(found_user => {
+          logger.debug(`(found_user === null) ${found_user} === null`);
+          assert(found_user === null);
+        })
+      )
+    );
+  }
+
+  //   it('can be deleted', (done) => {
+  //   const user = new User({
+  //     fbid: 1234567890,
+  //     name: 'Test User',
+  //     email: 'test@email.com'
+  //   });
+
+  //   user.save().then(() => {
+  //     user_service.remove(user._id, err => console.error(err))
+  //       .then((removed_user) => {
+  //         User.findOne({ _id: user._id })
+  //           .then((found_user) => {
+  //             assert(found_user === null);
+  //             done();
+  //           });
+  //       });
+  //   });
+  // });
 
 }
