@@ -1,0 +1,7 @@
+{
+    "buckets": {
+        "server": {
+            "port": "PORT"
+        }
+    }
+}
