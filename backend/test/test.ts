@@ -20,6 +20,8 @@ interface UserData {
   fbid: number;
   name: string;
   email: string;
+  picture?: string;
+  status?: string;
 }
 
 @suite('Users') class UserTest extends TestHelper {
