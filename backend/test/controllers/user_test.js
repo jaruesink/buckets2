@@ -16,7 +16,7 @@ const User = require('../../server/models/user');
 
 describe('Users', () => {
   it('can be created', (done) => {
-    console.log('USER >>>', User);
+    // console.log('USER >>>', User);
     User.count().then((count) => {
       user_service.create({
         fbid: 1234567890,
@@ -25,6 +25,7 @@ describe('Users', () => {
       }, (err) => { if (err) { console.error(err); } })
       .then((new_user) => {
         User.count().then((new_count) => {
+          console.log(count, new_count);
           assert(count + 1 === new_count);
           done();
         });
