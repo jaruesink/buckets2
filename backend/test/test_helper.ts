@@ -24,11 +24,11 @@ function dropBuckets(done:any) {
 @suite
 export default class Suite {
   before(done:any) {
-    logger.debug('reset test database before each test');
+    // logger.debug('reset test database before each test');
     dropBuckets(done);
   }
   static after(done:any) {
-    logger.debug('reset test database after all tests');
+    // logger.debug('reset test database after all tests');
     dropBuckets(done);
   }
 }

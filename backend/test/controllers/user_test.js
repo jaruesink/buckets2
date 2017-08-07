@@ -10,12 +10,13 @@ const user_service = app.service('api/user');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-require('../../server/models/user');
-const Bucket = mongoose.model('Bucket');
-const User = mongoose.model('User');
+
+const Bucket = require('../../server/models/bucket');
+const User = require('../../server/models/user');
 
 describe('Users', () => {
   it('can be created', (done) => {
+    console.log('USER >>>', User);
     User.count().then((count) => {
       user_service.create({
         fbid: 1234567890,

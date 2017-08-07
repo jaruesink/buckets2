@@ -9,7 +9,7 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "experimentalDecorators": true,
-    "lib": [ "es6" ]
+    "lib": [ "es6", "dom" ]
   },
   "include": [
     "test/**/*"
