@@ -13,8 +13,8 @@ const user_service = app.service('api/user');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const Bucket = require('../../server/models/bucket');
-const User = require('../../server/models/user');
+const Bucket = require('../server/models/bucket');
+const User = require('../server/models/user');
 
 interface UserData {
   fbid: number;
@@ -23,30 +23,21 @@ interface UserData {
 }
 
 @suite('Users') class UserTest extends TestHelper {
+  @test 'can be created'(done) {
 
-  user_data: UserData = {
-    fbid: 1234567890,
-    name: 'Test User',
-    email: 'test@email.com'
-  }
-
-  async countUsers():Promise<any> {
-    await User.count({});
-  }
-
-  async createUser(data:UserData):Promise<any> {
-    await user_service.create(data,
-      (err) => { if (err) { console.error(err); } }
-    );
-  }
-
-  @test 'can be created'() {
-    this.countUsers().then((count) => {
-      this.createUser(this.user_data)
-        .then((new_user) => {
-          this.countUsers().then((new_count) => {
-            assert(count + 1 === new_count);
-          });
+    // NO HACIENDO
+    User.count().then((count) => {
+      user_service.create({
+        fbid: 1234567890,
+        name: 'Test User',
+        email: 'test@email.com'
+      }, (err) => { if (err) { console.error(err); } })
+      .then((new_user) => {
+        User.count().then((new_count) => {
+          console.log(count, new_count);
+          assert(count + 1 === new_count);
+          done();
+        });
       });
     });
   }
