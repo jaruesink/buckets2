@@ -1,5 +1,8 @@
 {
     "buckets": {
+        "server": {
+            "port": 3000
+        },
         "db": {
             "options": {
                 "server": {
