@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:7.10
       - image: tutum/mongodb
-        command: [--name, buckets_db, -p, 27017:27017, -p, 28017:28017, -e, MONGODB_USER=username , -e MONGODB_DATABASE=buckets_test,  -e,  MONGODB_PASS=password , -e,  AUTH=no]
+        command: [--name, buckets_db, -p, "27017:27017", -p, "28017:28017", -e, MONGODB_USER=username , -e MONGODB_DATABASE=buckets_test,  -e,  MONGODB_PASS=password , -e,  AUTH=no]
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
