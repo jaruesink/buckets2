@@ -16,21 +16,21 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - dependencies-{{ checksum "~/repo/backend/package.json" }}{{checksum "~/repo/frontend/package.json"}}
+          - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
 
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: cd ~/repo/backend && yarn install
-      - run: cd ~/repo/frontend && yarn install
+      - run: cd ~/project/backend && yarn install
+      - run: cd ~/project/frontend && yarn install
 
       - save_cache:
           paths:
-            - ~/repo/backend/node_modules
-            - ~/repo/frontend/node_modules
-          key: dependencies-{{ checksum "~/repo/backend/package.json" }}{{checksum "~/repo/frontend/package.json"}}
+            - ~/project/backend/node_modules
+            - ~/project/frontend/node_modules
+          key: dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
         
       # run tests!
-      - run: cd ~/repo/backend && yarn startDatabase && yarn test_server
-      - run: cd ~/repo/fontend && yarn test
+      - run: cd ~/project/backend && yarn startDatabase && yarn test_server
+      - run: cd ~/project/fontend && yarn test
       
