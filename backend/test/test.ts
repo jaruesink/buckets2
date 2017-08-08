@@ -4,7 +4,7 @@ import { UserData, UserSchema, UserType } from '../server/models/user';
 
 import * as logger from '../server/logger';
 
-import TestHelper from './test_helper';
+import  TestHelper from './test_helper';
 
 
 @suite('Users') class UserTest extends TestHelper {
