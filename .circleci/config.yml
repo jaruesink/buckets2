@@ -32,5 +32,5 @@ jobs:
         
       # run tests!
       - run: cd ~/project/backend && yarn test_server
-      - run: cd ~/project/fontend && yarn test
+      - run: cd ~/project/frontend && yarn test
       
