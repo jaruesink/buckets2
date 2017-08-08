@@ -31,5 +31,3 @@ export const UserSchema = new m.Schema({
     type: String
   }
 });
-
-export const UserModel = m.model<UserType>('User', UserSchema);
