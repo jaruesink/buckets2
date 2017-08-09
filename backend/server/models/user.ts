@@ -1,4 +1,4 @@
-import * as m from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 export interface UserData {
   fbid: number;
@@ -8,9 +8,9 @@ export interface UserData {
   status?: string;
 }
 
-export type UserType = UserData & m.Document;
+export type UserType = UserData & Document;
 
-export const UserSchema = new m.Schema({
+export const UserSchema = new Schema({
   fbid: {
     type: String,
     required: true
