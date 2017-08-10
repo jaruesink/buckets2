@@ -1,21 +1,27 @@
+import * as logger from '../../server/logger';
 import { suite, test } from 'mocha-typescript';
 import { assert } from 'chai';
 import { UserData, UserSchema, UserType } from '../../server/models/user';
 import { BucketData, BucketSchema, BucketType } from '../../server/models/bucket';
 
-import * as logger from '../../server/logger';
-
-import  TestHelper from '../test_helper';
+import {
+  TestHelper,
+  createNewBucket,
+  createNewUser,
+  countBuckets,
+  saveUser,
+  createBucketService,
+} from '../helpers';
 
 @suite('Buckets') export default class BucketTest extends TestHelper {
 
-  testUserData: UserData = {
+  private testUserData: UserData = {
     fbid: 1234567890,
     name: 'Test User',
     email: 'test@email.com'
   }
 
-  testBucketData(id): BucketData {
+  private testBucketData(id): BucketData {
     return {
       name: 'Test Bucket',
       type: 'budget',
@@ -24,25 +30,20 @@ import  TestHelper from '../test_helper';
     }
   }
 
-  BucketModel = this.connection.model<BucketType>('Bucket',BucketSchema);
-
-  UserModel = this.connection.model<UserType>('User', UserSchema);
-
-  bucket_service = this.app.service('api/bucket');
-
-  createNewBucket(data): BucketType {
-    return new this.BucketModel(data);
-  }
-
-  createNewUser(data): UserType {
-    return new this.UserModel(data);
-  }
-
   @test async 'can be created'() {
-    const new_user = this.createNewUser(this.testUserData);
-    const new_bucket = this.createNewBucket(this.testBucketData(new_user._id));
+    const new_user = createNewUser(this.testUserData);
+    const new_bucket = createNewBucket(this.testBucketData(new_user._id));
 
-    // to be continued....
+    await saveUser(new_user).then(saved_user => 
+      countBuckets({ownerID: new_user._id}).then(count =>
+        createBucketService(new_bucket).then(created_bucket =>
+          countBuckets({ownerID: saved_user._id}).then(new_count => {
+            logger.debug(`(count + 1 === new_count) ${count} + 1 === ${new_count}`);
+            assert(count + 1 === new_count);
+          })
+        )
+      )
+    )
   }
 
 }
