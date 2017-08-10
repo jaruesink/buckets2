@@ -31,5 +31,4 @@ jobs:
           key: dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
         
       # run tests!
-      - run: cd ~/project/backend && yarn start_test_server
-      - run: yarn test_server      
+      - run: cd ~/project/backend && yarn test_server
