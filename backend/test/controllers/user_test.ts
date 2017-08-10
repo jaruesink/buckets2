@@ -42,8 +42,12 @@ import  TestHelper from '../test_helper';
     return this.user_service.create(data, (err) => { if (err) { console.error(err); } });
   }
 
-  findOneUser(id) {
-    return this.UserModel.findOne({ _id: id });
+  findAllBuckets(user_id) {
+    return this.BucketModel.find({ ownerID: user_id })
+  }
+
+  findOneUser(user_id) {
+    return this.UserModel.findOne({ _id: user_id });
   }
 
   removeUserService(id) {
@@ -105,10 +109,9 @@ import  TestHelper from '../test_helper';
   @test async 'can retrieve buckets they own'() {
     const new_user = this.createNewUser(this.testUserData)
     const new_bucket = this.createNewBucket(this.testBucketData(new_user._id));
-
     await this.saveUser(new_user).then(saved_user => 
       this.saveBucket(new_bucket).then(saved_bucket => 
-        this.BucketModel.find({ ownerID: saved_user._id }).then(returned_buckets => {
+        this.findAllBuckets(saved_user._id).then(returned_buckets => {
           logger.debug(`(saved_bucket._id.toString() === returned_buckets[0]._id.toString()) ${saved_bucket._id.toString()} === ${returned_buckets[0]._id.toString()}`);
           assert(saved_bucket._id.toString() === returned_buckets[0]._id.toString());
         })

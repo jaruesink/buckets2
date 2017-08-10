@@ -1,5 +1,5 @@
-import * as db from 'mongoose';
-(<any>db).Promise = global.Promise;
+import * as m from 'mongoose';
+(<any>m).Promise = global.Promise;
 
 import * as config from 'config';
 import * as feathers from 'feathers/client';
@@ -11,18 +11,18 @@ import * as logger from '../server/logger';
 import { suite } from 'mocha-typescript';
 
 const db_connection_url = config.get('buckets.db.url');
+const connection = m.createConnection(db_connection_url);
 
 @suite export default class TestHelper {
   app:any = feathers().configure(rest('http://localhost:3000').fetch(fetch));
-  connection = db.createConnection(db_connection_url);
+  connection = connection;
   before() {
-    db.connection.dropDatabase().catch(error => {
+    connection.dropDatabase().catch(error => {
       if (error) { logger.debug('error dropping database', error); }
     });
   }
-  // QUESTION: Why is this different in the static after() than in the before()
   static after() {
-    db.connection.dropDatabase().then(() => db.connection.close()).catch(error => {
+    connection.dropDatabase().then(() => m.connection.close()).catch(error => {
       if (error) { logger.debug('error dropping database', error); }
     });
   }

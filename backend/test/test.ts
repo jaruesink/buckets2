@@ -1,4 +1,4 @@
 import UserTest from './controllers/user_test';
 
 // Initiate and Run Tests
-new UserTest();
+const testing_users = new UserTest();
