@@ -8,7 +8,7 @@
     "build_server": "nodemon --exec 'node server.js'",
     "start_server": "NODE_ENV=dev nodemon --exec 'node server.js'",
     "test_server": "NODE_ENV=test yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
-    "run_test_server": "NODE_ENV=test node server.js",
+    "start_test_server": "NODE_ENV=test node server.js",
     "compile_tests": "tsc -p tsconfig.test.json",
     "test": "NODE_ENV=test node server.js & NODE_ENV=test nodemon --watch test -e ts --exec 'yarn compile_tests && mocha --opts mocha.opts'"
   },
