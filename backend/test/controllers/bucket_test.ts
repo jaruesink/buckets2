@@ -5,12 +5,16 @@ import { UserData, UserSchema, UserType } from '../../server/models/user';
 import { BucketData, BucketSchema, BucketType } from '../../server/models/bucket';
 
 import {
-  TestHelper,
+  countBuckets,
+  createBucketService,
   createNewBucket,
   createNewUser,
-  countBuckets,
+  saveBucket,
   saveUser,
-  createBucketService,
+  TestHelper,
+  updateBucketService,
+  findOneBucket,
+  removeBucketService
 } from '../helpers';
 
 @suite('Buckets') export default class BucketTest extends TestHelper {
@@ -38,8 +42,49 @@ import {
       countBuckets({ownerID: new_user._id}).then(count =>
         createBucketService(new_bucket).then(created_bucket =>
           countBuckets({ownerID: saved_user._id}).then(new_count => {
-            logger.debug(`(count + 1 === new_count) ${count} + 1 === ${new_count}`);
+            logger.debug(
+              '(count + 1 === new_count)',
+              `${count} + 1 === ${new_count}`
+            );
             assert(count + 1 === new_count);
+          })
+        )
+      )
+    )
+  }
+
+  @test async 'can be edited'() {
+    const new_user = createNewUser(this.testUserData);
+    const new_bucket = createNewBucket(this.testBucketData(new_user._id));
+
+    await saveUser(new_user).then(saved_user => 
+      saveBucket(new_bucket).then(saved_bucket =>
+        updateBucketService(saved_bucket._id, {amount: new_bucket.amount + 10}).then(edited_bucket =>
+          findOneBucket(new_bucket._id).then(found_bucket => {
+            logger.debug(
+              '(found_bucket.amount === new_bucket.amount + 10)',
+              `${found_bucket.amount} === ${new_bucket.amount + 10}`
+            );
+            assert(found_bucket.amount === new_bucket.amount + 10);
+          })
+        )
+      )
+    )
+  }
+
+  @test async 'can be deleted'() {
+    const new_user = createNewUser(this.testUserData);
+    const new_bucket = createNewBucket(this.testBucketData(new_user._id));
+
+    await saveUser(new_user).then(saved_user =>
+      saveBucket(new_bucket).then(saved_bucket =>
+        removeBucketService(new_bucket._id).then(removed_bucket => 
+          findOneBucket(saved_bucket._id).then(found_bucket => {
+            logger.debug(
+              '(found_bucket === null)',
+              `${found_bucket} === null`
+            );
+            assert(found_bucket === null);
           })
         )
       )
@@ -48,94 +93,3 @@ import {
 
 }
 
-
-// /* global describe, it */
-
-// const assert = require('assert');
-// const feathers = require('feathers/client');
-// const rest = require('feathers-rest/client');
-// const fetch = require('node-fetch');
-// const logger = require('../../server/logger');
-
-// const app = feathers().configure(rest('http://localhost:3000').fetch(fetch));
-// const bucket_service = app.service('api/bucket');
-
-// const mongoose = require('mongoose');
-// mongoose.Promise = global.Promise;
-// require('../../server/models/bucket');
-// require('../../server/models/user');
-// const Bucket = mongoose.model('Bucket');
-// const User = mongoose.model('User');
-
-// const user = new User({
-//   fbid: 1234567890,
-//   name: 'Test User',
-//   email: 'test@email.com'
-// });
-
-// describe('Bucket Services', () => {
-//   it('can create a bucket', (done) => {
-//     user.save().then((saved_user) => {
-//       Bucket.count().then((count) => {
-//         const bucket_to_create = {
-//           name: 'Test Bucket',
-//           type: 'budget',
-//           amount: 500,
-//           ownerID: saved_user._id
-//         };
-//         bucket_service.create(bucket_to_create, (err) => { if (err) { logger.error(err); } })
-//         .then((created_bucket) => {
-//           Bucket.count().then((new_count) => {
-//             assert(count + 1 === new_count);
-//             done();
-//           });
-//         });
-//       });
-//     });
-//   });
-
-//   it('can edit a bucket', (done) => {
-//     user.save().then((saved_user) => {
-//       const bucket = new Bucket({
-//         name: 'Test Bucket',
-//         type: 'budget',
-//         amount: 500,
-//         ownerID: saved_user._id
-//       });
-//       bucket.save().then(() => {
-//         bucket_service.update(bucket._id, {
-//           amount: bucket.amount + 10
-//         }, (err) => { if (err) { logger.error(err); } })
-//         .then((edited_bucket) => {
-//           Bucket.findOne({ _id: bucket._id })
-//             .then((found_bucket) => {
-//               assert(found_bucket.amount === bucket.amount + 10);
-//               done();
-//             });
-//         });
-//       });
-//     });
-//   });
-
-//   it('can delete a bucket', (done) => {
-//     user.save().then((saved_user) => {
-//       const bucket = new Bucket({
-//         name: 'Test Bucket',
-//         type: 'budget',
-//         amount: 500,
-//         ownerID: saved_user._id
-//       });
-//       bucket.save().then(() => {
-//         bucket_service.remove(bucket._id,
-//           (err) => { if (err) { logger.error(err); } })
-//           .then((removed_bucket) => {
-//             Bucket.findOne({ _id: bucket._id })
-//             .then((find_result) => {
-//               assert(find_result === null);
-//               done();
-//             });
-//           });
-//       });
-//     });
-//   });
-// });

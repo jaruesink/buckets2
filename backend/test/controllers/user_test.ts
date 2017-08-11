@@ -40,7 +40,10 @@ import {
     await countUsers().then(count => 
       createUserService(this.testUserData).then((new_user) =>
         countUsers().then((new_count) => {
-          logger.debug(`(count + 1 === new_count) ${count} + 1 === ${new_count}`);
+          logger.debug(
+            '(count + 1 === new_count)',
+            `${count} + 1 === ${new_count}`
+          );
           assert(count + 1 === new_count);
         })
       )
@@ -53,7 +56,10 @@ import {
     await saveUser(new_user).then(() =>
       updateUserService(new_user._id, {name: new_name}).then(edited_user =>
         findOneUser(new_user._id).then(found_user => {
-          logger.debug(`(found_user.name === new_name) ${found_user.name} === ${new_name}`);
+          logger.debug(
+            '(found_user.name === new_name)',
+            `${found_user.name} === ${new_name}`
+          );
           assert(found_user.name === new_name);
         })
       )
@@ -65,7 +71,10 @@ import {
     await saveUser(new_user).then(() =>
       removeUserService(new_user._id).then(() => 
         findOneUser(new_user._id).then(found_user => {
-          logger.debug(`(found_user === null) ${found_user} === null`);
+          logger.debug(
+            '(found_user === null)',
+            `${found_user} === null`
+          );
           assert(found_user === null);
         })
       )
@@ -78,7 +87,10 @@ import {
     await saveUser(new_user).then(saved_user => 
       saveBucket(new_bucket).then(saved_bucket => 
         findAllBuckets(saved_user._id).then(returned_buckets => {
-          logger.debug(`(saved_bucket._id.toString() === returned_buckets[0]._id.toString()) ${saved_bucket._id.toString()} === ${returned_buckets[0]._id.toString()}`);
+          logger.debug(
+            '(saved_bucket._id.toString() === returned_buckets[0]._id.toString())',
+            `${saved_bucket._id.toString()} === ${returned_buckets[0]._id.toString()}`
+          );
           assert(saved_bucket._id.toString() === returned_buckets[0]._id.toString());
         })
       )

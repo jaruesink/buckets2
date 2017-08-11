@@ -25,6 +25,18 @@ export const findAllBuckets = function(user_id): DocumentQuery<BucketType[], Buc
   return BucketModel.find({ ownerID: user_id });
 }
 
+export const findOneBucket = function(bucket_id): DocumentQuery<BucketType, BucketType> {
+  return BucketModel.findOne({ _id: bucket_id });
+}
+
+export const removeBucketService = function(id) {
+  return bucket_service.remove(id, (err) => { if (err) { logger.debug('error:', err); } });
+}
+
 export const saveBucket = function(bucket): Promise<BucketType> {
   return bucket.save();
+}
+
+export const updateBucketService = function(id, data) {
+  return bucket_service.update(id, data, (err) => { if (err) { logger.debug('error:', err); } });
 }
