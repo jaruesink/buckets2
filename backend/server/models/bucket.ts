@@ -1,3 +1,4 @@
+import { connection } from '../../test/helpers';
 import { Document, Schema } from 'mongoose';
 
 export interface BucketData {
@@ -33,4 +34,6 @@ export const BucketSchema = new Schema({
     required: true
   }
 });
+
+export const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
 

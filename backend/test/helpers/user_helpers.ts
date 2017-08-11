@@ -1,12 +1,9 @@
-import undefined from '../controllers/user_test';
-import * as logger from '../../server/logger';
-import { app, connection } from './test_helpers';
-import { BucketData, BucketSchema, BucketType } from '../../server/models/bucket';
-import { UserData, UserSchema, UserType } from '../../server/models/user';
-import { DocumentQuery, Query } from "mongoose";
+const logger = require('tracer').colorConsole();
 
-const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
-const UserModel = connection.model<UserType>('User', UserSchema);
+import { app, connection } from './test_helpers';
+import { BucketData, BucketType, BucketModel } from '../../server/models/bucket';
+import { UserData, UserType, UserModel } from '../../server/models/user';
+import { DocumentQuery, Query } from "mongoose";
 
 const user_service = app.service('api/user');
 

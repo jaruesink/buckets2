@@ -1,11 +1,10 @@
-import * as logger from '../../server/logger';
+const logger = require('tracer').colorConsole();
+
 import { Model, DocumentQuery, Query } from 'mongoose';
 import { app, connection } from './test_helpers';
-import { BucketData, BucketSchema, BucketType } from '../../server/models/bucket';
-import { UserSchema, UserType } from '../../server/models/user';
-
-const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
-const UserModel = connection.model<UserType>('User', UserSchema);
+import { BucketData, BucketType, BucketModel } from '../../server/models/bucket';
+import { UserType, UserModel } from '../../server/models/user';
+import BucketRepository from '../../server/repositories/bucket_repository';
 
 const bucket_service = app.service('api/bucket');
 
@@ -21,12 +20,16 @@ export const countBuckets = function(query = {}): Query<number> {
   return BucketModel.count(query);
 }
 
-export const findAllBuckets = function(user_id): DocumentQuery<BucketType[], BucketType> {
-  return BucketModel.find({ ownerID: user_id });
+export const findAllBuckets = function(ownerID): DocumentQuery<BucketType[], BucketType> {
+  return BucketModel.find({ ownerID });
 }
 
-export const findOneBucket = function(bucket_id): DocumentQuery<BucketType, BucketType> {
-  return BucketModel.findOne({ _id: bucket_id });
+export const findBucketsByPages = function(ownerID, pageNumber: number, pageSize: number) {
+  return BucketRepository.findBucketsForOwner({ownerID, pageNumber, pageSize});
+}
+
+export const findOneBucket = function(_id): DocumentQuery<BucketType, BucketType> {
+  return BucketModel.findOne({ _id });
 }
 
 export const removeBucketService = function(id) {

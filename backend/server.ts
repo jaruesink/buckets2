@@ -1,0 +1,68 @@
+const logger = require('tracer').colorConsole();
+
+import * as config from 'config';
+import * as mongoose from 'mongoose';
+(<any>mongoose).Promise = global.Promise;
+
+import * as path from 'path';
+
+import * as feathers from 'feathers';
+import * as rest from 'feathers-rest';
+import * as errorHandler from 'feathers-errors/handler';
+import * as bodyParser from 'body-parser';
+
+// Initiate our app
+const app = feathers();
+
+// connect to the mongodb database
+const options = config.get('buckets.db.options');
+const bucketsDbUrl = config.get('buckets.db.url');
+logger.info(`connecting to mongodb at url ${bucketsDbUrl}`);
+mongoose.connect(
+  bucketsDbUrl,
+  options
+);
+
+// Get our realtime routes
+const realtime_routes = require('./server/routes/realtime');
+
+app.use('/realtime', realtime_routes);
+
+// Enable REST services
+app.configure(rest());
+
+// Parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Point static path to dist
+app.use(feathers.static(path.join(__dirname, 'dist')));
+
+// Get our API routes
+const api_routes = require('./server/routes/api');
+
+// Set our api routes
+app.use('/api', api_routes);
+
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
+// Get port from environment and store in Express.
+const port = config.get('buckets.server.port');
+// app.set('port', port);
+logger.info('express listening on port: ', port);
+
+// Listen on provided port, on all network interfaces.
+app.listen(port);
+
+// Set up error handling
+app.use(<any>errorHandler());
+
+// Catch all unhandled promise rejections
+process.on('unhandledRejection', (reason, p) => {
+  logger.error(`Unhandled Promise Rejection: ${reason}, `, p);
+});
+
+export default app;

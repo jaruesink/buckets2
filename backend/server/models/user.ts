@@ -1,3 +1,4 @@
+import { connection } from '../../test/helpers';
 import { Document, Schema } from 'mongoose';
 
 export interface UserData {
@@ -31,3 +32,5 @@ export const UserSchema = new Schema({
     type: String
   }
 });
+
+export const UserModel = connection.model<UserType>('User', UserSchema);

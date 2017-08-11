@@ -1,3 +1,5 @@
+const logger = require('tracer').colorConsole();
+
 import * as m from 'mongoose';
 (<any>m).Promise = global.Promise;
 
@@ -5,8 +7,6 @@ import * as config from 'config';
 import * as feathers from 'feathers/client';
 import * as rest from 'feathers-rest/client';
 import * as fetch from 'node-fetch';
-
-import * as logger from '../../server/logger';
 
 import { suite } from 'mocha-typescript';
 

@@ -1,4 +1,5 @@
-import * as logger from '../../server/logger';
+const logger = require('tracer').colorConsole();
+
 import { suite, test } from 'mocha-typescript';
 import { assert } from 'chai';
 import { UserData, UserSchema, UserType } from '../../server/models/user';
@@ -14,7 +15,8 @@ import {
   TestHelper,
   updateBucketService,
   findOneBucket,
-  removeBucketService
+  removeBucketService,
+  findBucketsByPages
 } from '../helpers';
 
 @suite('Buckets') export default class BucketTest extends TestHelper {
@@ -87,6 +89,32 @@ import {
             assert(found_bucket === null);
           })
         )
+      )
+    )
+  }
+
+  @test async 'can be returned as page repositories'() {
+    const new_user = createNewUser(this.testUserData);
+    const new_bucket = createNewBucket(this.testBucketData(new_user._id));
+
+    await saveUser(new_user).then(saved_user =>
+      saveBucket(new_bucket).then(saved_bucket =>
+        findBucketsByPages(new_user._id, 1, 10).then(buckets_page => {
+            logger.debug(
+              '(buckets_page.totalRecords === 1)',
+              `${buckets_page.totalRecords} === 1`,
+              '(buckets_page.data[0]._id.toString() === saved_bucket._id.toString())',
+              `${buckets_page.data[0]._id.toString()} === ${saved_bucket._id.toString()}`,
+              '(buckets_page.pageNumber === 1)',
+              `${buckets_page.pageNumber} === 1`,
+              '(buckets_page.pageSize === 10)',
+              `${buckets_page.pageSize} === 10`
+            );
+            assert(buckets_page.totalRecords === 1);
+            assert(buckets_page.data[0]._id.toString() === saved_bucket._id.toString());
+            assert(buckets_page.pageNumber === 1);
+            assert(buckets_page.pageSize === 10);
+        })
       )
     )
   }
