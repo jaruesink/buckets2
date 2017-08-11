@@ -19,7 +19,6 @@ export class BucketService {
   }
 
   createBucket(data) {
-    console.log('>>>>>>', data);
     data.ownerID = this.auth.me._id;
     return this.service.create(data);
   }

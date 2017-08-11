@@ -1,8 +1,16 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-const Schema = mongoose.Schema;
+import { Document, Schema } from 'mongoose';
 
-const UserSchema = new Schema({
+export interface UserData {
+  fbid: number;
+  name: string;
+  email: string;
+  picture?: string;
+  status?: string;
+}
+
+export type UserType = UserData & Document;
+
+export const UserSchema = new Schema({
   fbid: {
     type: String,
     required: true
@@ -23,7 +31,3 @@ const UserSchema = new Schema({
     type: String
   }
 });
-
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
