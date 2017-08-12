@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "yarn compile_server && NODE_ENV=prod node server.js",
+    "start": "yarn compile_server && NODE_ENV=prod node server-tsc/server.js",
     "start_db": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
-    "watch_dev_server": "NODE_ENV=dev nodemon --exec 'node server.js'",
+    "watch_dev_server": "NODE_ENV=dev nodemon --exec 'node server-tsc/server.js'",
     "test_server": "yarn start_test_server & NODE_ENV=test yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
     "compile_server": "tsc -p tsconfig.server.json",
-    "start_test_server": "NODE_ENV=test node server.js",
+    "start_test_server": "NODE_ENV=test node test-tsc/server/server.js",
     "compile_tests": "tsc -p tsconfig.test.json",
     "test": "yarn compile_server && yarn start_test_server & NODE_ENV=test nodemon --watch test -e ts --exec 'yarn compile_tests && mocha --opts mocha.opts'"
   },
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.2",
+    "@types/express": "types/npm-express",
     "@types/jasmine": "2.5.38",
     "@types/mongodb": "^2.2.9",
     "@types/mongoose": "^4.7.19",

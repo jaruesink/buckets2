@@ -10,8 +10,8 @@ import * as fetch from 'node-fetch';
 
 import { suite } from 'mocha-typescript';
 
-const db_connection_url = config.get('buckets.db.url');
-export const connection = m.createConnection(db_connection_url);
+import { connection } from '../../server/server';
+export { connection } from '../../server/server';
 export const app:any = feathers().configure(rest('http://localhost:3000').fetch(fetch));
 
 @suite export class TestHelper {

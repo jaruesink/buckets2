@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "outDir": "./server-tsc",
     "target": "es6",
     "noImplicitAny": false,
     "removeComments": true,
@@ -10,6 +11,10 @@
     "lib": [ "es6", "dom" ]
   },
   "include": [
-    "server.ts"
+    "server/server.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "test/**"
   ]
 }

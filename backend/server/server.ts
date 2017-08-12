@@ -1,8 +1,8 @@
 const logger = require('tracer').colorConsole();
 
 import * as config from 'config';
-import * as mongoose from 'mongoose';
-(<any>mongoose).Promise = global.Promise;
+import * as m from 'mongoose';
+(<any>m).Promise = global.Promise;
 
 import * as path from 'path';
 
@@ -11,21 +11,21 @@ import * as rest from 'feathers-rest';
 import * as errorHandler from 'feathers-errors/handler';
 import * as bodyParser from 'body-parser';
 
+import realtime_routes from './routes/realtime';
+import api_routes from './routes/api';
+
 // Initiate our app
 const app = feathers();
 
 // connect to the mongodb database
 const options = config.get('buckets.db.options');
 const bucketsDbUrl = config.get('buckets.db.url');
+
 logger.info(`connecting to mongodb at url ${bucketsDbUrl}`);
-mongoose.connect(
-  bucketsDbUrl,
-  options
-);
 
-// Get our realtime routes
-const realtime_routes = require('./server/routes/realtime');
+export const connection = m.createConnection(bucketsDbUrl);
 
+// Realtime Routes
 app.use('/realtime', realtime_routes);
 
 // Enable REST services
@@ -38,10 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(feathers.static(path.join(__dirname, 'dist')));
 
-// Get our API routes
-const api_routes = require('./server/routes/api');
-
-// Set our api routes
+// REST API Routes
 app.use('/api', api_routes);
 
 // Catch all other routes and return the index file

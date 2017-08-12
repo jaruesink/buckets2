@@ -18,6 +18,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/express@types/npm-express":
+  version "4.14.0"
+  resolved "https://codeload.github.com/types/npm-express/tar.gz/7670cf1cbce96b3159e3ff04a253926b34111220"
+  dependencies:
+    "@types/serve-static" "github:types/npm-serve-static#c1f96843c8b96a37f6c534cb1dadb48f5329e4e0"
+    path-to-regexp "github:pillarjs/path-to-regexp#ec285ed3500aed455df59e3b8b07f473412918a4"
+
 "@types/express@~4.0.35":
   version "4.0.36"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.0.36.tgz#14eb47de7ecb10319f0a2fb1cf971aa8680758c2"
@@ -65,6 +72,10 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/serve-static@github:types/npm-serve-static#c1f96843c8b96a37f6c534cb1dadb48f5329e4e0":
+  version "1.11.1"
+  resolved "https://codeload.github.com/types/npm-serve-static/tar.gz/c1f96843c8b96a37f6c534cb1dadb48f5329e4e0"
 
 "@types/socket.io@~1.4.27":
   version "1.4.29"
@@ -2022,10 +2033,6 @@ growl@1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
 
-hammerjs@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
-
 handlebars@^4.0.3:
   version "4.0.10"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.10.tgz#3d30c718b09a3d96f23ea4cc1f403c4d3ba9ff4f"
@@ -3414,6 +3421,12 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
+"path-to-regexp@github:pillarjs/path-to-regexp#ec285ed3500aed455df59e3b8b07f473412918a4":
+  version "1.5.3"
+  resolved "https://codeload.github.com/pillarjs/path-to-regexp/tar.gz/ec285ed3500aed455df59e3b8b07f473412918a4"
+  dependencies:
+    isarray "0.0.1"
+
 path-type@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
@@ -3823,10 +3836,6 @@ require_optional@~1.0.0:
 requires-port@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
-
-reset-css@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/reset-css/-/reset-css-2.2.1.tgz#fe3204c0c4831979fbb4967c90a992f0164635ed"
 
 resolve-from@^1.0.0:
   version "1.0.1"

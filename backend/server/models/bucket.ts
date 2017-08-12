@@ -1,4 +1,4 @@
-import { connection } from '../../test/helpers';
+import { connection } from '../server';
 import { Document, Schema } from 'mongoose';
 
 export interface BucketData {
