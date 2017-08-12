@@ -1,0 +1,11 @@
+version: '2'
+services:
+  buckets2:
+    image: djrobotfreak/buckets2:latest
+    environment:
+      PORT: '80'
+      NODE_ENV: prod
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
