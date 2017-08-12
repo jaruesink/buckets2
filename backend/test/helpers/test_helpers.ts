@@ -10,11 +10,19 @@ import * as fetch from 'node-fetch';
 
 import { suite } from 'mocha-typescript';
 
-import { connection } from '../../server/server';
-export { connection } from '../../server/server';
-export const app:any = feathers().configure(rest('http://localhost:3000').fetch(fetch));
+import Server from '../../server/server';
+
+const bucketsDbUrl = config.get('buckets.db.url');
+const options = config.get('buckets.db.options');
+
+export const connection = Server.createConnection(bucketsDbUrl, options);
+export const app = Server.app;
+// export const app:any = feathers().configure(rest('http://localhost:3000').fetch(fetch));
 
 @suite export class TestHelper {
+  static before() {
+    Server.run();
+  }
   before() {
     connection.dropDatabase().catch(error => {
       if (error) { logger.debug('error dropping database', error); }
@@ -24,5 +32,6 @@ export const app:any = feathers().configure(rest('http://localhost:3000').fetch(
     connection.dropDatabase().catch(error => {
       if (error) { logger.debug('error dropping database', error); }
     });
+    Server.close();
   }
 }

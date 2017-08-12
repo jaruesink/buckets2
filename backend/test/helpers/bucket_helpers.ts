@@ -2,10 +2,12 @@ const logger = require('tracer').colorConsole();
 
 import { Model, DocumentQuery, Query } from 'mongoose';
 import { app, connection } from './test_helpers';
-import { BucketData, BucketType, BucketModel } from '../../server/models/bucket';
-import { UserType, UserModel } from '../../server/models/user';
+import { BucketData, BucketType, BucketSchema } from '../../server/models/bucket';
+import { UserType, UserSchema } from '../../server/models/user';
 import BucketRepository from '../../server/repositories/bucket_repository';
 
+const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
+const UserModel = connection.model<UserType>('User', UserSchema);
 const bucket_service = app.service('api/bucket');
 
 export const createNewBucket = function(data:BucketData): BucketType {

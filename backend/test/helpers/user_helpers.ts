@@ -1,9 +1,12 @@
 const logger = require('tracer').colorConsole();
 
 import { app, connection } from './test_helpers';
-import { BucketData, BucketType, BucketModel } from '../../server/models/bucket';
-import { UserData, UserType, UserModel } from '../../server/models/user';
+import { BucketData, BucketType, BucketSchema } from '../../server/models/bucket';
+import { UserData, UserType, UserSchema } from '../../server/models/user';
 import { DocumentQuery, Query } from "mongoose";
+
+const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
+const UserModel = connection.model<UserType>('User', UserSchema);
 
 const user_service = app.service('api/user');
 

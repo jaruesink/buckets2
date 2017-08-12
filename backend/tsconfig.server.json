@@ -11,7 +11,7 @@
     "lib": [ "es6", "dom" ]
   },
   "include": [
-    "server/server.ts"
+    "server/run.ts"
   ],
   "exclude": [
     "node_modules",
