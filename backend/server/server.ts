@@ -1,4 +1,4 @@
-import { createConnection } from 'net';
+import { } from './services/user_service';
 const logger = require('tracer').colorConsole();
 
 import * as config from 'config';
@@ -50,6 +50,14 @@ process.on('unhandledRejection', (reason, p) => {
   logger.error(`Unhandled Promise Rejection: ${reason}, `, p);
 });
 
+export const services = {
+  bucket: app.service('api/bucket'),
+  login: app.service('api/login'),
+  user: app.service('api/user')
+};
+
+logger.debug('Why is this undefined? >>> SERVICES >>>: ', services);
+
 class Server {
   app = app;
   private _server;
@@ -72,4 +80,4 @@ class Server {
   }
 }
 
-export default new Server();
+export const server = new Server();

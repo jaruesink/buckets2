@@ -1,6 +1,9 @@
+const logger = require('tracer').colorConsole();
 import * as fetch from 'node-fetch';
 import { UserModel, UserType } from '../models/user';
-import UserService from './user_service';
+import user_service from './user_service';
+
+const UserService = new user_service();
 
 const fb_me_request = 'https://graph.facebook.com/v2.8/me?fields=id,name,email,picture';
 
@@ -37,4 +40,4 @@ class LoginService {
   }
 }
 
-export default new LoginService();
+export default LoginService;

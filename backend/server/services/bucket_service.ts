@@ -38,4 +38,4 @@ class BucketService {
   }
 }
 
-export default new BucketService();
+export default BucketService;

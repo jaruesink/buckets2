@@ -1,21 +1,21 @@
 const logger = require('tracer').colorConsole();
 
 import { Model, DocumentQuery, Query } from 'mongoose';
-import { app, connection } from './test_helpers';
+import { app, connection, services } from './test_helpers';
 import { BucketData, BucketType, BucketSchema } from '../../server/models/bucket';
 import { UserType, UserSchema } from '../../server/models/user';
 import BucketRepository from '../../server/repositories/bucket_repository';
 
 const BucketModel = connection.model<BucketType>('Bucket', BucketSchema);
 const UserModel = connection.model<UserType>('User', UserSchema);
-const bucket_service = app.service('api/bucket');
+const { bucket: BucketService } = services;
 
 export const createNewBucket = function(data:BucketData): BucketType {
   return new BucketModel(data);
 }
 
 export const createBucketService = function(data:BucketData) {
-  return bucket_service.create(data, (err) => { if (err) { logger.debug('error:', err); } });
+  return BucketService.create(data, (err) => { if (err) { logger.debug('error:', err); } });
 }
 
 export const countBuckets = function(query = {}): Query<number> {
@@ -35,7 +35,7 @@ export const findOneBucket = function(_id): DocumentQuery<BucketType, BucketType
 }
 
 export const removeBucketService = function(id) {
-  return bucket_service.remove(id, (err) => { if (err) { logger.debug('error:', err); } });
+  return BucketService.remove(id, (err) => { if (err) { logger.debug('error:', err); } });
 }
 
 export const saveBucket = function(bucket): Promise<BucketType> {
@@ -43,5 +43,5 @@ export const saveBucket = function(bucket): Promise<BucketType> {
 }
 
 export const updateBucketService = function(id, data) {
-  return bucket_service.update(id, data, (err) => { if (err) { logger.debug('error:', err); } });
+  return BucketService.update(id, data, (err) => { if (err) { logger.debug('error:', err); } });
 }

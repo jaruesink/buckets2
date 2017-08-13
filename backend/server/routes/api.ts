@@ -16,8 +16,8 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use('/login', <any>LoginService);
-router.use('/user', <any>UserService);
-router.use('/bucket', <any>BucketService);
+router.use('/login', <any>new LoginService());
+router.use('/user', <any>new UserService());
+router.use('/bucket', <any>new BucketService());
 
 export default router;
