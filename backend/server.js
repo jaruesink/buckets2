@@ -13,8 +13,6 @@ mongoose.Promise = global.Promise;
 // Initiate our app
 const app = feathers();
 
-module.exports = app;
-
 // connect to the mongodb database
 const options = config.get('buckets.db.options');
 const bucketsDbUrl = config.get('buckets.db.url');
@@ -66,3 +64,5 @@ app.use(errorHandler());
 process.on('unhandledRejection', (reason, p) => {
   logger.error(`Possibly Unhandled Rejection: ${reason}, `, p);
 });
+
+module.exports = app;

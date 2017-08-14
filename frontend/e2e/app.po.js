@@ -1,0 +1,10 @@
+import { browser, element, by } from 'protractor';
+export class BucketsPage {
+    navigateTo() {
+        return browser.get('/');
+    }
+    getParagraphText() {
+        return element(by.css('app-root h1')).getText();
+    }
+}
+//# sourceMappingURL=app.po.js.map

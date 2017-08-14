@@ -4,10 +4,13 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=prod node server.js",
-    "startDatabase": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
+    "start_db": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
     "build_server": "nodemon --exec 'node server.js'",
     "start_server": "NODE_ENV=dev nodemon --exec 'node server.js'",
-    "test_server": "NODE_ENV=test mocha --recursive"
+    "test_server": "yarn start_test_server & NODE_ENV=test yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
+    "start_test_server": "NODE_ENV=test node server.js",
+    "compile_tests": "tsc -p tsconfig.test.json",
+    "test": "NODE_ENV=test node server.js & NODE_ENV=test nodemon --watch test -e ts --exec 'yarn compile_tests && mocha --opts mocha.opts'"
   },
   "private": true,
   "dependencies": {
@@ -23,18 +26,23 @@
     "feathers-reactive": "^0.4.1",
     "feathers-rest": "^1.6.0",
     "feathers-socketio": "^1.4.2",
-    "hammerjs": "^2.0.8",
     "mongodb": "^2.2.22",
     "mongoose": "^4.8.1",
     "mongoose-auth": "^0.0.12",
     "node-fetch": "^1.6.3",
     "nodemon": "^1.11.0",
-    "reset-css": "^2.2.1",
     "socket.io-client": "^1.7.3",
     "tracer": "^0.8.9",
     "uws": "^8.14.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.0.2",
+    "@types/jasmine": "2.5.38",
+    "@types/mongodb": "^2.2.9",
+    "@types/mongoose": "^4.7.19",
+    "@types/node": "~6.0.60",
+    "chai": "^4.1.1",
+    "codelyzer": "~2.0.0",
     "core-js": "^2.4.1",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
@@ -50,12 +58,14 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "mocha": "^3.2.0",
+    "mocha-typescript": "^1.1.7",
     "protractor": "~5.1.0",
+    "source-map-support": "^0.4.15",
     "supertest": "^3.0.0",
     "ts-helpers": "^1.1.1",
     "ts-node": "~2.0.0",
     "tslint": "^5.4.3",
-    "typescript": "^2.3.4",
+    "typescript": "^2.4.2",
     "zone.js": "^0.8.4"
   }
 }
