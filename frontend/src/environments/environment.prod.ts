@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  restUrl: 'https://bucketsmoney.herokuapp.com',
+  restUrl: 'https://my.buckets.money',
   fbAppID: '228671707475003'
 };
