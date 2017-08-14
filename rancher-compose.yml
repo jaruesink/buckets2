@@ -1,5 +1,8 @@
 version: '2'
 services:
-  buckets2:
+  buckets-dev:
+    scale: 1
+    start_on_create: true
+  buckets-prod:
     scale: 2
     start_on_create: true

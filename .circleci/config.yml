@@ -31,4 +31,35 @@ jobs:
           key: dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
         
       # run tests!
-      - run: cd ~/project/backend && yarn test_server      
+      - run: cd ~/project/backend && yarn test_server  
+  
+  deploy_staging:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+          - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
+          - v1-dependencies-
+      - run: cd ~/project/frontend && yarn install && yarn build
+      - run: cd ~/project/backend && yarn install && yarn build
+      - run: docker build . -t djrobotfreak/buckets2:latest
+      - run: docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker push djrobotfreak/buckets2:latest
+      - run: cd ~/project && curl https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: tar -xvzf rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: rancher-compose-linux-amd64-v0.12.5/rancher-compose up -p dev buckets-dev --upgrade
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: sequential-branch-filter

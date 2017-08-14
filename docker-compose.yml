@@ -1,10 +1,20 @@
 version: '2'
 services:
-  buckets2:
-    image: djrobotfreak/buckets2:latest
+  buckets-prod:
+    image: djrobotfreak/buckets2:prod
     environment:
       PORT: '80'
       NODE_ENV: prod
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+
+  buckets-dev:
+    image: djrobotfreak/buckets2:latest
+    environment:
+      PORT: '80'
+      NODE_ENV: dev
     stdin_open: true
     tty: true
     labels:
