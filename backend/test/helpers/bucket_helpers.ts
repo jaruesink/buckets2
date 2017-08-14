@@ -1,7 +1,7 @@
 const logger = require('tracer').colorConsole();
 
 import { Model, DocumentQuery, Query } from 'mongoose';
-import { app, connection, services } from './test_helpers';
+import { connection, services } from './test_helpers';
 import { BucketData, BucketType, BucketSchema } from '../../server/models/bucket';
 import { UserType, UserSchema } from '../../server/models/user';
 import BucketRepository from '../../server/repositories/bucket_repository';

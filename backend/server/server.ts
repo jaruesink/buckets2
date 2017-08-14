@@ -9,6 +9,8 @@ import * as path from 'path';
 
 import * as feathers from 'feathers';
 import * as rest from 'feathers-rest';
+import * as rest_client from 'feathers-rest/client';
+import * as fetch from 'node-fetch';
 import * as errorHandler from 'feathers-errors/handler';
 import * as bodyParser from 'body-parser';
 
@@ -50,15 +52,16 @@ process.on('unhandledRejection', (reason, p) => {
   logger.error(`Unhandled Promise Rejection: ${reason}, `, p);
 });
 
-export const services = {
-  bucket: app.service('api/bucket'),
-  login: app.service('api/login'),
-  user: app.service('api/user')
-};
+// export const services = {
+//   bucket: app.service('api/bucket'),
+//   login: app.service('api/login'),
+//   user: app.service('api/user')
+// };
 
-logger.debug('Why is this undefined? >>> SERVICES >>>: ', services);
+// logger.debug('Why is this undefined? >>> APP >>>: ', services.bucket.find());
 
-class Server {
+
+export class Server {
   app = app;
   private _server;
   connect(url, options) {
@@ -79,5 +82,3 @@ class Server {
     this._server = app.listen(port);
   }
 }
-
-export const server = new Server();

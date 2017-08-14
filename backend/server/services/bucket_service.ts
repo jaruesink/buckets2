@@ -1,3 +1,4 @@
+const logger = require('tracer').colorConsole();
 import * as errors from 'feathers-errors';
 import { BucketModel } from '../models/bucket';
 
