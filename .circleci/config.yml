@@ -30,5 +30,60 @@ jobs:
             - ~/project/frontend/node_modules
           key: dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
         
-      # run tests!
-      - run: cd ~/project/backend && yarn test_server
+      - run: cd ~/project/backend && yarn test_server  
+  
+  deploy_staging:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+          - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
+          - v1-dependencies-
+      - run: cd ~/project/frontend && yarn install && yarn build
+      - run: cd ~/project/backend && yarn install
+      - run: docker build . -t djrobotfreak/buckets2:latest
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker push djrobotfreak/buckets2:latest
+      - run: cd ~/project && curl -O https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: tar -xvzf rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: rancher-compose-v0.12.5/rancher-compose -p dev up -d --upgrade --pull --confirm-upgrade buckets-dev
+
+  deploy_prod:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+          - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
+          - v1-dependencies-
+      - run: cd ~/project/frontend && yarn install && yarn build
+      - run: cd ~/project/backend && yarn install
+      - run: docker build . -t djrobotfreak/buckets2:prod
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker push djrobotfreak/buckets2:prod
+      - run: cd ~/project && curl -O https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: tar -xvzf rancher-compose-linux-amd64-v0.12.5.tar.gz
+      - run: rancher-compose-v0.12.5/rancher-compose -p prod up -d --upgrade --pull --confirm-upgrade buckets-prod
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy_staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: dev
+      - deploy_prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
