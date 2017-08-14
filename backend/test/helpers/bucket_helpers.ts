@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../../server/logger';
 
 import { Model, DocumentQuery, Query } from 'mongoose';
 import { services } from './test_helpers';

@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../../server/logger';
 
 import * as m from 'mongoose';
 (<any>m).Promise = global.Promise;

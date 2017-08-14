@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../../server/logger';
 
 import { services } from './test_helpers';
 import { BucketData, BucketType, BucketSchema } from '../../server/models/bucket';

@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../logger';
 import { BucketModel } from '../models/bucket';
 import * as Promise from 'bluebird';
 import PageUtils from '../utils/page_utils'

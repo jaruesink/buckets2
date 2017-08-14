@@ -1,5 +1,4 @@
-import { } from './services/user_service';
-const logger = require('tracer').colorConsole();
+import logger from './logger';
 
 import * as config from 'config';
 import * as m from 'mongoose';

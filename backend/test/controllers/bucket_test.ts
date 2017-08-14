@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../../server/logger';
 
 import { suite, test } from 'mocha-typescript';
 import { assert } from 'chai';

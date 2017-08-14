@@ -1,4 +1,4 @@
-const logger = require('tracer').colorConsole();
+import logger from '../logger';
 import * as fetch from 'node-fetch';
 import { UserModel, UserType } from '../models/user';
 import user_service from './user_service';
