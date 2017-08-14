@@ -8,7 +8,7 @@
     "watch_dev_server": "NODE_ENV=dev nodemon --exec 'node server-tsc/server.js'",
     "compile_server": "tsc -p tsconfig.server.json",
     "compile_tests": "tsc -p tsconfig.test.json",
-    "test_server":"yarn compile_server && yarn compile_tests && mocha --opts mocha.opts",
+    "test_server":"yarn compile_server && yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
     "test": "NODE_ENV=test nodemon --watch test --watch server -e ts --exec 'yarn compile_server && yarn compile_tests && mocha --opts mocha.opts'"
   },
   "private": true,
