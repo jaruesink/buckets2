@@ -1,8 +1,13 @@
 version: '2'
 services:
   buckets-dev:
+    upgrade_strategy:
+      start_first: true
     scale: 1
     start_on_create: true
+    
   buckets-prod:
+    upgrade_strategy:
+      start_first: true
     scale: 2
     start_on_create: true

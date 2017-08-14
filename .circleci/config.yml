@@ -50,7 +50,7 @@ jobs:
       - run: docker push djrobotfreak/buckets2:latest
       - run: cd ~/project && curl -O https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
       - run: tar -xvzf rancher-compose-linux-amd64-v0.12.5.tar.gz
-      - run: rancher-compose-v0.12.5/rancher-compose up -p dev buckets-dev --upgrade
+      - run: rancher-compose-v0.12.5/rancher-compose -p dev up -d --upgrade --pull --confirm-upgrade buckets-dev
 
 workflows:
   version: 2
