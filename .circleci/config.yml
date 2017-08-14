@@ -44,7 +44,7 @@ jobs:
           - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
           - v1-dependencies-
       - run: cd ~/project/frontend && yarn install && yarn build
-      - run: cd ~/project/backend && yarn install && yarn build
+      - run: cd ~/project/backend && yarn install
       - run: docker build . -t djrobotfreak/buckets2:latest
       - run: docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker push djrobotfreak/buckets2:latest
