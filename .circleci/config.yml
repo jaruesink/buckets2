@@ -30,7 +30,6 @@ jobs:
             - ~/project/frontend/node_modules
           key: dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
         
-      # run tests!
       - run: cd ~/project/backend && yarn test_server  
   
   deploy_staging:
