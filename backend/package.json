@@ -6,11 +6,11 @@
     "start": "yarn compile_server && NODE_ENV=prod node server-tsc/server.js",
     "start_db": "docker run -d --name buckets_db -p 27017:27017 -p 28017:28017 -e MONGODB_USER=\"username\" -e MONGODB_DATABASE=\"buckets_test\" -e MONGODB_PASS=\"password\" -e AUTH=no tutum/mongodb",
     "watch_dev_server": "NODE_ENV=dev nodemon --exec 'node server-tsc/server.js'",
-    "test_server": "yarn start_test_server & NODE_ENV=test yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
+    "test_server": "yarn compile_server && yarn start_test_server & NODE_ENV=test yarn compile_tests && NODE_ENV=test mocha --opts mocha.opts",
     "compile_server": "tsc -p tsconfig.server.json",
     "start_test_server": "NODE_ENV=test node server-tsc/server.js",
     "compile_tests": "tsc -p tsconfig.test.json",
-    "test": "NODE_ENV=test nodemon --watch test -e ts --exec 'yarn compile_tests && mocha --opts mocha.opts'"
+    "test": "NODE_ENV=test nodemon --watch test --watch server -e ts --exec 'yarn compile_server && yarn compile_tests && mocha --opts mocha.opts'"
   },
   "private": true,
   "dependencies": {

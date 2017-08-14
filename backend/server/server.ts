@@ -52,15 +52,6 @@ process.on('unhandledRejection', (reason, p) => {
   logger.error(`Unhandled Promise Rejection: ${reason}, `, p);
 });
 
-// export const services = {
-//   bucket: app.service('api/bucket'),
-//   login: app.service('api/login'),
-//   user: app.service('api/user')
-// };
-
-// logger.debug('Why is this undefined? >>> APP >>>: ', services.bucket.find());
-
-
 export class Server {
   app = app;
   private _server;

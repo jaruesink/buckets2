@@ -39,9 +39,9 @@ import {
   @test async 'can be created'() {
     const new_user = createNewUser(this.testUserData);
     const new_bucket = createNewBucket(this.testBucketData(new_user._id));
-
-    await saveUser(new_user).then(saved_user => 
-      countBuckets({ownerID: new_user._id}).then(count =>
+    await saveUser(new_user).then(saved_user => {
+      logger.debug('saves user');
+      return countBuckets({ownerID: new_user._id}).then(count =>
         createBucketService(new_bucket).then(created_bucket =>
           countBuckets({ownerID: saved_user._id}).then(new_count => {
             logger.debug(
@@ -52,7 +52,7 @@ import {
           })
         )
       )
-    )
+    })
   }
 
   @test async 'can be edited'() {

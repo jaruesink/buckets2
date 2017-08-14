@@ -16,24 +16,18 @@ const server = new Server();
 const bucketsDbUrl = config.get('buckets.db.url');
 const options = config.get('buckets.db.options');
 
-export const connection = server.createConnection(bucketsDbUrl, options);
+const connection = server.createConnection(bucketsDbUrl, options);
+m.connect(bucketsDbUrl, options);
+
 
 const fetcher = feathers();
 fetcher.configure(rest('http://localhost:3000').fetch(fetch));
-
 export const services = {
   bucket: fetcher.service('api/bucket'),
   login: fetcher.service('api/login'),
   user: fetcher.service('api/user')
 };
 
-logger.debug(services.user);
-
-// services.user.create({fbid: 1234567890,
-//   name: 'Test User',
-//   email: 'test@email.com'}).then(created_user => {
-//     logger.debug(created_user);
-//   });
 
 @suite export class TestHelper {
   static before() {

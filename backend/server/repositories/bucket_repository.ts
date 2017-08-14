@@ -25,5 +25,3 @@ export class BucketRepository {
       );
   }
 }
-
-export default new BucketRepository();
