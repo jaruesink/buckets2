@@ -46,7 +46,7 @@ jobs:
       - run: cd ~/project/frontend && yarn install && yarn build
       - run: cd ~/project/backend && yarn install
       - run: docker build . -t djrobotfreak/buckets2:latest
-      - run: docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker push djrobotfreak/buckets2:latest
       - run: cd ~/project && curl https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
       - run: tar -xvzf rancher-compose-linux-amd64-v0.12.5.tar.gz
