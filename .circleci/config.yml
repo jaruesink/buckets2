@@ -42,7 +42,7 @@ jobs:
           keys:
           - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
           - v1-dependencies-
-      - run: cd ~/project/frontend && yarn install && yarn build
+      - run: cd ~/project/frontend && yarn install && yarn build_dev
       - run: cd ~/project/backend && yarn install
       - run: docker build . -t djrobotfreak/buckets2:latest
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
@@ -61,7 +61,7 @@ jobs:
           keys:
           - dependencies-{{ checksum "~/project/backend/package.json" }}{{checksum "~/project/frontend/package.json"}}
           - v1-dependencies-
-      - run: cd ~/project/frontend && yarn install && yarn build
+      - run: cd ~/project/frontend && yarn install && yarn build_prod
       - run: cd ~/project/backend && yarn install
       - run: docker build . -t djrobotfreak/buckets2:prod
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
