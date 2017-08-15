@@ -54,15 +54,21 @@ process.on('unhandledRejection', (reason, p) => {
 export class Server {
   app = app;
   private _server;
+  private _db;
   connect(url, options) {
     logger.info(`connecting to mongodb at url ${url}`);
-    return m.connect(url, options);
+    this._db = m.connect(url, options);
+    return this._db;
   }
   close() {
     if (this._server) {
       logger.info('port closed: ', port);
-      this._server.close();
+      return this._server.close();
     }
+  }
+  close_connection() {
+    logger.info(`closing the connection to mongodb`);
+    return this._db.connection.close();
   }
   createConnection(url, options) {
     return m.createConnection(url, options);

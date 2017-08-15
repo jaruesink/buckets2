@@ -40,5 +40,6 @@ export const services = {
       if (error) { logger.debug('error dropping database', error); }
     });
     server.close();
+    server.close_connection();
   }
 }
