@@ -17,8 +17,6 @@ const bucketsDbUrl = config.get('buckets.db.url');
 const options = config.get('buckets.db.options');
 
 const connection = server.createConnection(bucketsDbUrl, options);
-m.connect(bucketsDbUrl, options);
-
 
 const fetcher = feathers();
 fetcher.configure(rest('http://localhost:3000').fetch(fetch));
@@ -28,10 +26,9 @@ export const services = {
   user: fetcher.service('api/user')
 };
 
-
 @suite export class TestHelper {
   static before() {
-    server.run();
+    server.connect(bucketsDbUrl, options).then(() => server.run());
   }
   before() {
     connection.dropDatabase().catch(error => {
