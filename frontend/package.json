@@ -6,7 +6,7 @@
     "dev": "ng serve",
     "ng": "ng",
     "build_prod": "ng build --prod --aot",
-    "build_dev": "ng build --env=dev --aot",
+    "build_dev": "ng build --dev --aot",
     "build_local": "ng build --local --aot",
     "test": "ng test",
     "lint": "ng lint"
