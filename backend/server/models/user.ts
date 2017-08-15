@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose';
+import * as m from 'mongoose';
 
 export interface UserData {
   fbid: number;
@@ -8,9 +8,9 @@ export interface UserData {
   status?: string;
 }
 
-export type UserType = UserData & Document;
+export type UserType = UserData & m.Document;
 
-export const UserSchema = new Schema({
+export const UserSchema = new m.Schema({
   fbid: {
     type: String,
     required: true
@@ -31,3 +31,5 @@ export const UserSchema = new Schema({
     type: String
   }
 });
+
+export const UserModel = m.model<UserType>('User', UserSchema);

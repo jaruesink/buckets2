@@ -1,7 +1,10 @@
 {
-    "buckets": {
-        "db": {
-            "url": "mongodb://127.0.0.1/buckets_test"
-        }
+  "buckets": {
+    "db": {
+      "url": "mongodb://127.0.0.1/buckets_test"
+    },
+    "options": {
+      "useMongoClient": true
     }
+  }
 }
