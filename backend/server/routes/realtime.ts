@@ -1,8 +1,11 @@
-const feathers = require('feathers');
-const realtime = feathers();
-const socketio = require('feathers-socketio');
+import * as feathers from 'feathers';
+import * as socketio from 'feathers-socketio';
 
-realtime.configure(socketio({ wsEngine: 'uws' }, (io) => {
+import UserService from '../services/user_service';
+
+const realtime = feathers();
+
+realtime.configure(socketio((io) => {
   io.on('connection', (socket) => {
     socket.emit('news', { text: 'A client connected!' });
   });
@@ -15,8 +18,6 @@ realtime.configure(socketio({ wsEngine: 'uws' }, (io) => {
   });
 }));
 
-const UserService = require('../services/user_service');
+realtime.use('/user', <any>UserService);
 
-realtime.use('/user_status', new UserService());
-
-module.exports = realtime;
+export default realtime;
