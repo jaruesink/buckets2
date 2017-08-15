@@ -1,9 +1,9 @@
+import logger from '../../server/logger';
+
 import { suite, test } from 'mocha-typescript';
 import { assert } from 'chai';
 import { UserData, UserSchema, UserType } from '../../server/models/user';
 import { BucketData, BucketSchema, BucketType } from '../../server/models/bucket';
-
-import * as logger from '../../server/logger';
 
 import {
   TestHelper,

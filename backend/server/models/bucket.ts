@@ -1,16 +1,16 @@
-import { Document, Schema } from 'mongoose';
+import * as m from 'mongoose';
 
 export interface BucketData {
   name: string;
   type: string;
   amount: number;
   isFund?: boolean;
-  ownerID: Schema.Types.ObjectId
+  ownerID: m.Schema.Types.ObjectId
 }
 
-export type BucketType = BucketData & Document;
+export type BucketType = BucketData & m.Document;
 
-export const BucketSchema = new Schema({
+export const BucketSchema = new m.Schema({
   name: {
     type: String,
     required: true
@@ -28,9 +28,11 @@ export const BucketSchema = new Schema({
     default: false
   },
   ownerID: {
-    type: Schema.Types.ObjectId,
+    type: m.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   }
 });
+
+export const BucketModel = m.model<BucketType>('Bucket', BucketSchema);
 

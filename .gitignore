@@ -4,6 +4,7 @@
 /tmp
 /out-tsc
 /backend/test-tsc
+/backend/server-tsc
 /frontend/dist
 
 # dependencies

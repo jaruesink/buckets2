@@ -1,11 +1,11 @@
-const Bucket = require('../models/bucket');
-const Promise = require('bluebird');
-const logger = require('../logger');
-const PageUtils = require('../utils/page_utils');
+import logger from '../logger';
+import { BucketModel } from '../models/bucket';
+import * as Promise from 'bluebird';
+import PageUtils from '../utils/page_utils'
 
-class BucketRepository {
+export class BucketRepository {
   findBucketsForOwner({ ownerID, pageNumber, pageSize }) {
-    const query = Bucket.find({ ownerID })
+    const query = BucketModel.find({ ownerID })
       .sort({ name: -1 });
     const resultsPromise = query
       .skip((pageNumber - 1) * pageSize)
@@ -25,5 +25,3 @@ class BucketRepository {
       );
   }
 }
-
-module.exports = new BucketRepository();
