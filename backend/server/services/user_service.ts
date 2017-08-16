@@ -1,7 +1,9 @@
+import logger from '../logger';
 import { UserModel } from '../models/user';
 
-class UserService {
+export default class UserService {
   create(data, params?, errorCallback?) {
+    logger.debug('creating?', data);
     const new_user = new UserModel(data);
     return new_user.save()
       .then(user => Promise.resolve(user))
@@ -18,5 +20,3 @@ class UserService {
       .catch(errorCallback);
   }
 }
-
-export default UserService;
