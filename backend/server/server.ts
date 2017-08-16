@@ -20,7 +20,7 @@ import api_routes from './routes/api';
 const app = feathers();
 
 // Test server
-app.use('/testing', (req, res) => {
+app.use('/healthcheck', (req, res) => {
   res.json({ server_is_up: true });
 });
 
