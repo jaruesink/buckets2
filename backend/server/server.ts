@@ -19,6 +19,11 @@ import api_routes from './routes/api';
 // Initiate our app
 const app = feathers();
 
+// Test server
+app.use('/healthcheck', (req, res) => {
+  res.json({ server_is_up: true });
+});
+
 // Realtime Routes
 app.use('/realtime', realtime_routes);
 
