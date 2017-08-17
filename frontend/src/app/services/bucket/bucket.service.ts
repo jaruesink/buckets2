@@ -35,11 +35,9 @@ export class BucketService {
 
   loadBuckets() {
     return this.auth.checkLogin().flatMap(
-      (user) => {
-        console.log('user loading buckets for: ', user);
-        return this.service.find({query: { userID: user._id }}).then(
+      (user) => this.service.find({query: { userID: user._id }}).then(
         buckets => this.buckets = buckets
-      )}
+      )
     );
   }
 }
