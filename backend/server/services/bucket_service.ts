@@ -1,9 +1,11 @@
+import { request } from 'http';
 import logger from '../logger';
 import * as errors from 'feathers-errors';
 import { BucketModel } from '../models/bucket';
 
-class BucketService {
-  find({ userID, bucketID }) {
+export default class BucketService {
+  find(request) {
+    const { userID, bucketID } = request.query;
     if (userID) {
       return BucketModel.find({ ownerID: userID })
         .then(returned_buckets => Promise.resolve(returned_buckets));
@@ -38,5 +40,3 @@ class BucketService {
       .catch(errorCallback);
   }
 }
-
-export default BucketService;
