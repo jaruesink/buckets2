@@ -3,7 +3,6 @@ import { UserModel } from '../models/user';
 
 export default class UserService {
   create(data, params?, errorCallback?) {
-    logger.debug('creating?', data);
     const new_user = new UserModel(data);
     return new_user.save()
       .then(user => Promise.resolve(user))

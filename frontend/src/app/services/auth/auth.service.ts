@@ -11,7 +11,7 @@ export class AuthService {
     public router: Router,
     private fb: FacebookService,
     private connect: ConnectService
-  ) {  }
+  ) { }
 
   getUser(authResponse): Observable<any> {
     const access_token = authResponse.accessToken
@@ -22,7 +22,7 @@ export class AuthService {
     return Observable
     .fromPromise(this.fb.getLoginStatus())
     .flatMap(({authResponse}) => {
-      // console.log('Login Status Response from FB: ', authResponse);
+      console.log('Login Status Response from FB: ', authResponse);
       if (this.connect.current_path === '/login') {
         this.router.navigate(['/']);
       }
@@ -33,7 +33,7 @@ export class AuthService {
     .catch(error => {
       this.router.navigate(['/login']).then(() => {
       });
-      return Observable.throw(`Error: ${error}`)
+      return Observable.throw(`Error: ${error}`);
     });
   }
 

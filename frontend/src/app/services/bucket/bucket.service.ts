@@ -28,15 +28,16 @@ export class BucketService {
   }
 
   loadBucket(id) {
-    return this.service.find({ bucketID: id }).then(
+    return this.service.find({query: { bucketID: id }}).then(
       bucket => this.bucket = bucket
     );
   }
 
   loadBuckets() {
     return this.auth.checkLogin().flatMap(
-      (user) => this.service.find({ userID: user._id }).then(
+      (user) => this.service.find({query: { userID: user._id }}).then(
         buckets => this.buckets = buckets
-      ));
+      )
+    );
   }
 }
