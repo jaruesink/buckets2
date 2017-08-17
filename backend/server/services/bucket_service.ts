@@ -4,8 +4,7 @@ import * as errors from 'feathers-errors';
 import { BucketModel } from '../models/bucket';
 
 export default class BucketService {
-  find(request) {
-    const { userID, bucketID } = request.query;
+  find({query: {userID, bucketID}}) {
     if (userID) {
       return BucketModel.find({ ownerID: userID })
         .then(returned_buckets => Promise.resolve(returned_buckets));
