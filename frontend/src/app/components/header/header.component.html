@@ -11,5 +11,5 @@
     </button>
     <h1 class="header-title">{{title}}</h1>
   </div>
-  <img class="header-profile" src="{{(auth.me$ | async).picture}}" alt="{{(auth.me$ | async).name}}">
+  <img class="header-profile" src="{{auth.me?.picture}}" alt="{{auth.me?.name}}">
 </div>
