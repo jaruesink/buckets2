@@ -33,8 +33,8 @@ export class AppComponent {
     fb.init(FBParams);
 
     this.auth.checkLogin().then(authResponse => {
-      if (authResponse) {
-        this.connect.isLoading = false;
+      this.connect.isLoading = false;
+      if (!authResponse) {
         this.router.navigate(['/login']);
       }
     });
