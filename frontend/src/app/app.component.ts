@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   constructor(
     private auth: AuthService,
     public connect: ConnectService,
@@ -30,15 +31,9 @@ export class AppComponent {
       cookie: true
     };
 
-    fb.init(FBParams);
-
-    this.auth.checkLogin().then(authResponse => {
-      this.connect.isLoading = false;
-      if (!authResponse) {
-        this.router.navigate(['/login']);
-      }
+    fb.init(FBParams).then(() => {
+      this.auth.checkLogin();
     });
-
 
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart ) {
