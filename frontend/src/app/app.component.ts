@@ -26,20 +26,19 @@ export class AppComponent {
     const FBParams: InitParams = {
       appId: environment.fbAppID,
       xfbml: true,
-      version: 'v2.8',
+      version: 'v2.10',
       cookie: true
     };
 
     fb.init(FBParams);
 
-    this.auth.checkLogin().subscribe(
-      (user) => {
-        // console.log('user info: ', user)
-        if (!this.auth.me) {
-          this.auth.me = user;
-          this.connect.isLoading = false;
-        }
-      });
+    this.auth.checkLogin().then(authResponse => {
+      if (authResponse) {
+        this.connect.isLoading = false;
+        this.router.navigate(['/login']);
+      }
+    });
+
 
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart ) {
