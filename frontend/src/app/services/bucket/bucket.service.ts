@@ -34,10 +34,10 @@ export class BucketService {
   }
 
   loadBuckets() {
-    return this.auth.checkLogin().flatMap(
-      (user) => this.service.find({query: { userID: user._id }}).then(
-        buckets => this.buckets = buckets
-      )
+    return this.auth.me$.flatMap((user) =>
+      { console.log('user requesting buckets', user);
+        return this.service.find({query: { userID: user._id }}).then(buckets => this.buckets = buckets)}
     );
   }
+
 }

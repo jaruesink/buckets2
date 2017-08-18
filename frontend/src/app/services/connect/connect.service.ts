@@ -21,7 +21,6 @@ export class ConnectService {
   isLoading:boolean;
 
   constructor() {
-    console.log('environment >>>', environment);
     this.api.hooks({
       error(hook) {
         console.error(hook);
