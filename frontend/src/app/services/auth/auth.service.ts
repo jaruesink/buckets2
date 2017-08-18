@@ -31,10 +31,11 @@ export class AuthService {
         }
         this.getUser(authResponse).subscribe(user => this._me.next(user));
         return authResponse;
+      } else {
+        this.connect.isLoading = false;
+        this.router.navigate(['/login']);
       }
-      throw new Error('user is not logged in');
-    }).catch(error => console.error(error));
-
+    });
   }
 
   login(): Observable<any> {

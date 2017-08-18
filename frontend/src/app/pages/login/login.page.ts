@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   `,
   styleUrls: ['./login.page.scss']
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   title = 'Login Page!';
 
   constructor(
@@ -20,10 +20,6 @@ export class LoginPage implements OnInit {
     private connect: ConnectService,
     private router: Router,
   ) {}
-
-  ngOnInit() {
-    this.connect.isLoading = false;
-  }
 
   login() {
     this.auth.login().subscribe((response) => {
